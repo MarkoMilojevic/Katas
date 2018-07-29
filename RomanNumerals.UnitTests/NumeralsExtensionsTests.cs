@@ -1,15 +1,21 @@
 ﻿using System.Collections.Generic;
-using RomanNumerals.Declarative;
 using Xunit;
+using NumeralMappingsDeclarative = RomanNumerals.Declarative.NumeralMappingsExtensions;
+using NumeralMappingsImperative = RomanNumerals.Imperative.NumeralMappingsExtensions;
 
 namespace RomanNumerals.UnitTests
 {
-    public class RomanNumeralsExtensionsTests
+    public class NumeralsExtensionsTests
     {
         [Theory]
         [MemberData(nameof(ToRomanParams))]
-        public void ToRoman(int number, string expectedRomanNumeral) =>
-            Assert.Equal(expectedRomanNumeral, number.ToRoman());
+        public void ToRomanDeclarative(int number, string expectedRomanNumeral) =>
+            Assert.Equal(expectedRomanNumeral, NumeralMappingsDeclarative.ToRoman(number));
+
+        [Theory]
+        [MemberData(nameof(ToRomanParams))]
+        public void ToRomanImperative(int number, string expectedRomanNumeral) =>
+            Assert.Equal(expectedRomanNumeral, NumeralMappingsImperative.ToRoman(number));
 
         public static IEnumerable<object[]> ToRomanParams()
         {

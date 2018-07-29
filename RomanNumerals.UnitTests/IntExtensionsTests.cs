@@ -1,15 +1,21 @@
 ﻿using System.Collections.Generic;
-using RomanNumerals.Declarative;
 using Xunit;
+using IntExtensionsDeclarative = RomanNumerals.Declarative.IntExtensions;
+using IntExtensionsImperative = RomanNumerals.Imperative.IntExtensions;
 
-namespace RomanNumerals.UnitTests.Declarative
+namespace RomanNumerals.UnitTests
 {
     public class IntExtensionsTests
     {
         [Theory]
         [MemberData(nameof(GetWeightedDigitsParams))]
-        public void GetWeightedDigits(int number, int[] expectedWeightedDigits) =>
-            Assert.Equal(expectedWeightedDigits, number.GetWeightedDigits());
+        public void GetWeightedDigitsDeclarative(int number, int[] expectedWeightedDigits) =>
+            Assert.Equal(expectedWeightedDigits, IntExtensionsDeclarative.GetWeightedDigits(number));
+
+        [Theory]
+        [MemberData(nameof(GetWeightedDigitsParams))]
+        public void GetWeightedDigitsImperative(int number, int[] expectedWeightedDigits) =>
+            Assert.Equal(expectedWeightedDigits, IntExtensionsImperative.GetWeightedDigits(number));
 
         public static IEnumerable<object[]> GetWeightedDigitsParams()
         {
