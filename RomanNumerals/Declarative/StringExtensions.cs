@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RomanNumerals
+namespace RomanNumerals.Declarative
 {
     public static class StringExtensions
     {
