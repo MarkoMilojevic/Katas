@@ -19,6 +19,7 @@ namespace RomanNumerals.UnitTests
 
         public static IEnumerable<object[]> GetWeightedDigitsParams()
         {
+            yield return new object[] { 0, new int[] { } };
             yield return new object[] { 1, new[] { 1 } };
             yield return new object[] { 10, new[] { 10 } };
             yield return new object[] { 12, new[] { 10, 2 } };

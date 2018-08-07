@@ -19,6 +19,7 @@ namespace RomanNumerals.UnitTests
 
         public static IEnumerable<object[]> ToRomanParams()
         {
+            yield return new object[] { 0, "" };
             yield return new object[] { 1, "I" };
             yield return new object[] { 5, "V" };
             yield return new object[] { 10, "X" };
