@@ -13,7 +13,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.FiftyCents + Coin.TwentyFiveCents + Coin.TenCents);
 
-            IEnumerable<Coin> change = ((Some<IEnumerable<Coin>>) optionalChange).Reduce(Enumerable.Empty<Coin>()).ToList();
+            IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 3);
             Assert.True(change.Count(coin => coin == Coin.FiftyCents) == 1);
             Assert.True(change.Count(coin => coin == Coin.TwentyFiveCents) == 1);
@@ -27,7 +27,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.FiftyCents + Coin.FiveCents);
 
-            IEnumerable<Coin> change = ((Some<IEnumerable<Coin>>)optionalChange).Reduce(Enumerable.Empty<Coin>()).ToList();
+            IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 2);
             Assert.True(change.Count(coin => coin == Coin.FiftyCents) == 1);
             Assert.True(change.Count(coin => coin == Coin.FiveCents) == 1);
@@ -40,7 +40,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.TwentyFiveCents);
 
-            IEnumerable<Coin> change = ((Some<IEnumerable<Coin>>)optionalChange).Reduce(Enumerable.Empty<Coin>()).ToList();
+            IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 1);
             Assert.True(change.Count(coin => coin == Coin.TwentyFiveCents) == 1);
         }
@@ -52,7 +52,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.OneDollar);
 
-            Assert.True(optionalChange is None<IEnumerable<Coin>>);
+            Assert.True(optionalChange.Map(_ => false).Reduce(true));
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.OneCent);
 
-            Assert.True(optionalChange is None<IEnumerable<Coin>>);
+            Assert.True(optionalChange.Map(_ => false).Reduce(true));
         }
         
         [Fact]
@@ -72,7 +72,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(80);
 
-            IEnumerable<Coin> change = ((Some<IEnumerable<Coin>>)optionalChange).Reduce(Enumerable.Empty<Coin>()).ToList();
+            IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 4);
             Assert.True(change.Count(coin => coin == Coin.FiftyCents) == 1);
             Assert.True(change.Count(coin => coin == Coin.TenCents) == 3);
@@ -92,7 +92,7 @@ namespace CoinChange.UnitTests
 
             Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(99);
 
-            IEnumerable<Coin> change = ((Some<IEnumerable<Coin>>)optionalChange).Reduce(Enumerable.Empty<Coin>()).ToList();
+            IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 8);
             Assert.True(change.Count(coin => coin == Coin.FiftyCents) == 1);
             Assert.True(change.Count(coin => coin == Coin.TwentyFiveCents) == 1);
