@@ -1,7 +1,6 @@
 ﻿using System;
-using CoinChange.Functional;
 
-namespace CoinChange
+namespace CoinChange.Functional
 {
     public class None<T> : Option<T>
     {

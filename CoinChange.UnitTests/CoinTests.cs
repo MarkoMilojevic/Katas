@@ -40,7 +40,7 @@ namespace CoinChange.UnitTests
             Assert.True(null != second);
 
             Assert.False(first.Equals(null));
-            Assert.False(first.Equals((Coin) null));
+            Assert.False(first.Equals((object) null));
             Assert.False(first == null);
             Assert.False(null == second);
         }
