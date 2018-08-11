@@ -89,7 +89,10 @@ namespace CoinChange
 
             public void Unuse(Coin coin)
             {
-                Result.RemoveAt(Result.Count - 1);
+                if (!IsUsed(coin))
+                    return;
+
+                Result.Remove(coin);
                 Remaining += coin;
                 CoinsByCount[coin] += 1;
             }
