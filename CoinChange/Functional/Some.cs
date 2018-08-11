@@ -1,25 +1,23 @@
 ﻿using System;
 
-namespace CoinChange
+namespace CoinChange.Functional
 {
-    public class None<T> : Option<T>
+    public class Some<T> : Option<T>
     {
+        private T Content { get; }
+
+        public Some(T content) =>
+            Content = content;
+
         public override Option<TResult> Map<TResult>(Func<T, TResult> map) =>
-            new None<TResult>();
+            new Some<TResult>(map(Content));
 
         public override T Reduce(T whenNone) =>
-            whenNone;
+            Content;
 
         public override T Reduce(Func<T> whenNone) =>
-            whenNone();
-
+            Content;
         public override Option<T> TryReduce(Func<Option<T>> whenNone) =>
-            whenNone();
-    }
-
-    public class None
-    {
-        public static None Value { get; } = new None();
-        private None() { }
+            this;
     }
 }

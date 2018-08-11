@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoinChange
+namespace CoinChange.Functional
 {
     public abstract class Option<T>
     {
