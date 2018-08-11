@@ -15,30 +15,26 @@ namespace CoinChange
                 return state.Result;
 
             return state.CoinBeingProcessed
-                 .Map(coin =>
-                     {
-                         if (!state.IsAvailable(coin))
-                             return ChangeFor(state.Next());
+                        .Map(coin =>
+                        {
+                            if (!state.IsAvailable(coin))
+                                return ChangeFor(state.Next());
 
-                         state.UseAsMuchAsPossibleOf(coin);
+                            state.UseAsMuchAsPossibleOf(coin);
 
-                         return ChangeFor(state.Next())
-                                .TryReduce(() => WithSmallerCoin(state.Next()))
-                                .TryReduce(() => WithBacktrack(coin, state));
-                     }
-                 )
+                            return ChangeFor(state.Next())
+                                   .TryReduce(() => WithSmallerCoin(state.Next()))
+                                   .TryReduce(() => WithBacktrack(coin, state));
+                        })
+                        .Reduce(None.Value);
+        }
+        
+        private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state) =>
+            state.CoinBeingProcessed
+                 .Map(_ => ChangeFor(state.Next())
+                            .TryReduce(() => WithSmallerCoin(state.Next())))
                  .Reduce(None.Value);
-        }
-        
-        private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state)
-        {
-            if (state.ProcessedAllCoins)
-                return None.Value;
 
-            return ChangeFor(state.Next())
-                .TryReduce(() => WithSmallerCoin(state.Next()));
-        }
-        
         private static Option<IEnumerable<Coin>> WithBacktrack(Coin coin, ChangeCalculationState state)
         {
             if (!state.IsUsed(coin))
@@ -47,7 +43,7 @@ namespace CoinChange
             state.Unuse(coin);
 
             return ChangeFor(state.Next())
-                .TryReduce(() => WithBacktrack(coin, state));
+                   .TryReduce(() => WithBacktrack(coin, state));
         }
 
         private class ChangeCalculationState
@@ -57,8 +53,7 @@ namespace CoinChange
             private IDictionary<Coin, int> CoinsByCount { get; }
 
             public bool IsPaidFully => Remaining == 0;
-            public Option<Coin> CoinBeingProcessed => ProcessedAllCoins ? None.Value : (Option<Coin>)Coins.AllCoinsHighestToLowest[CoinIndex];
-            public bool ProcessedAllCoins => CoinIndex >= Coins.Count;
+            public Option<Coin> CoinBeingProcessed => CoinIndex < Coins.Count ? (Option<Coin>)Coins.AllCoinsHighestToLowest[CoinIndex] : None.Value;
             public List<Coin> Result { get; }
 
             public ChangeCalculationState(IEnumerable<Coin> coins, int amount)
