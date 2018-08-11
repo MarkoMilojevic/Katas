@@ -11,8 +11,8 @@ namespace CoinChange
             CalculateChangeGiven(new ChangeCalculationState(coins, amount));
 
         private static Option<IEnumerable<Coin>> CalculateChangeGiven(ChangeCalculationState state) =>
-            state.IsPaidFully
-                ? state.Result
+            state.IsChangePaidOut
+                ? new Some<IEnumerable<Coin>>(state.CalculatedChange)
                 : state.CoinBeingProcessed
                        .Map(coin =>
                        {
@@ -45,10 +45,11 @@ namespace CoinChange
             private int Remaining { get; set; }
             private int CoinIndex { get; }
             private IDictionary<Coin, int> CoinsByCount { get; }
+            private List<Coin> UsedCoins { get; }
 
-            public bool IsPaidFully => Remaining == 0;
+            public bool IsChangePaidOut => Remaining == 0;
             public Option<Coin> CoinBeingProcessed => CoinIndex < Coins.Count ? (Option<Coin>) Coins.HighestToLowest[CoinIndex] : None.Value;
-            public List<Coin> Result { get; }
+            public IEnumerable<Coin> CalculatedChange => UsedCoins;
 
             public ChangeCalculationState(IEnumerable<Coin> coins, int amount)
             {
@@ -58,7 +59,7 @@ namespace CoinChange
                                .ToDictionary(group => group.Key, group => group.Count());
 
                 CoinIndex = 0;
-                Result = new List<Coin>();
+                UsedCoins = new List<Coin>();
             }
 
             private ChangeCalculationState(int remaining, IDictionary<Coin, int> coinsByCount, int coinIndex, List<Coin> result)
@@ -66,17 +67,17 @@ namespace CoinChange
                 Remaining = remaining;
                 CoinsByCount = coinsByCount;
                 CoinIndex = coinIndex;
-                Result = result;
+                UsedCoins = result;
             }
 
             public ChangeCalculationState ForNextCoin() =>
-                new ChangeCalculationState(Remaining, CoinsByCount, CoinIndex + 1, Result);
+                new ChangeCalculationState(Remaining, CoinsByCount, CoinIndex + 1, UsedCoins);
 
             public bool IsAvailable(Coin coin) =>
                 CoinsByCount.ContainsKey(coin);
 
             public bool IsUsed(Coin coin) =>
-                Result.Contains(coin);
+                CalculatedChange.Contains(coin);
 
             public void UseAsMuchAsPossibleOf(Coin coin)
             {
@@ -84,7 +85,7 @@ namespace CoinChange
 
                 Remaining -= coin * availableNumberOfCoins;
                 CoinsByCount[coin] -= availableNumberOfCoins;
-                Result.AddRange(Enumerable.Repeat(coin, availableNumberOfCoins));
+                UsedCoins.AddRange(Enumerable.Repeat(coin, availableNumberOfCoins));
             }
 
             public void Unuse(Coin coin)
@@ -92,7 +93,7 @@ namespace CoinChange
                 if (!IsUsed(coin))
                     return;
 
-                Result.Remove(coin);
+                UsedCoins.Remove(coin);
                 Remaining += coin;
                 CoinsByCount[coin] += 1;
             }
