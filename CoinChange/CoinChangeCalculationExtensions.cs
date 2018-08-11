@@ -7,9 +7,9 @@ namespace CoinChange
     public static class CoinChangeCalculationExtensions
     {
         public static Option<IEnumerable<Coin>> ChangeFor(this IEnumerable<Coin> coins, int amount) =>
-            ChangeFor(new ChangeCalculationState(coins, amount));
+            CalculateChangeGiven(new ChangeCalculationState(coins, amount));
 
-        private static Option<IEnumerable<Coin>> ChangeFor(ChangeCalculationState state)
+        private static Option<IEnumerable<Coin>> CalculateChangeGiven(ChangeCalculationState state)
         {
             if (state.IsPaidFully)
                 return state.Result;
@@ -18,11 +18,11 @@ namespace CoinChange
                         .Map(coin =>
                         {
                             if (!state.IsAvailable(coin))
-                                return ChangeFor(state.Next());
+                                return CalculateChangeGiven(state.Next());
 
                             state.UseAsMuchAsPossibleOf(coin);
 
-                            return ChangeFor(state.Next())
+                            return CalculateChangeGiven(state.Next())
                                    .TryReduce(() => WithSmallerCoin(state.Next()))
                                    .TryReduce(() => WithBacktrack(coin, state));
                         })
@@ -31,7 +31,7 @@ namespace CoinChange
         
         private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state) =>
             state.CoinBeingProcessed
-                 .Map(_ => ChangeFor(state.Next())
+                 .Map(_ => CalculateChangeGiven(state.Next())
                             .TryReduce(() => WithSmallerCoin(state.Next())))
                  .Reduce(None.Value);
 
@@ -42,7 +42,7 @@ namespace CoinChange
 
             state.Unuse(coin);
 
-            return ChangeFor(state.Next())
+            return CalculateChangeGiven(state.Next())
                    .TryReduce(() => WithBacktrack(coin, state));
         }
 
