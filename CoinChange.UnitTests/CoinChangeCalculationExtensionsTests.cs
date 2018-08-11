@@ -12,7 +12,7 @@ namespace CoinChange.UnitTests
         {
             var coins = new[] { Coin.OneDollar, Coin.FiftyCents, Coin.TwentyFiveCents, Coin.TenCents, Coin.FiveCents, Coin.OneCent };
 
-            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.FiftyCents + Coin.TwentyFiveCents + Coin.TenCents);
+            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(85);
 
             IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 3);
@@ -26,7 +26,7 @@ namespace CoinChange.UnitTests
         {
             var coins = new[] { Coin.OneDollar, Coin.FiftyCents, Coin.TwentyFiveCents, Coin.TenCents, Coin.FiveCents, Coin.OneCent };
 
-            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.FiftyCents + Coin.FiveCents);
+            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(55);
 
             IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 2);
@@ -39,7 +39,7 @@ namespace CoinChange.UnitTests
         {
             var coins = new[] { Coin.OneDollar, Coin.FiftyCents, Coin.TwentyFiveCents, Coin.TenCents, Coin.FiveCents, Coin.OneCent };
 
-            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.TwentyFiveCents);
+            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(25);
 
             IEnumerable<Coin> change = optionalChange.Reduce(Enumerable.Empty<Coin>()).ToList();
             Assert.True(change.Count() == 1);
@@ -51,7 +51,7 @@ namespace CoinChange.UnitTests
         {
             var coins = new[] { Coin.OneCent };
 
-            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.OneDollar);
+            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(100);
 
             Assert.True(optionalChange.Map(_ => false).Reduce(true));
         }
@@ -61,7 +61,7 @@ namespace CoinChange.UnitTests
         {
             IEnumerable<Coin> coins = Enumerable.Empty<Coin>();
 
-            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(Coin.OneCent);
+            Option<IEnumerable<Coin>> optionalChange = coins.ChangeFor(1);
 
             Assert.True(optionalChange.Map(_ => false).Reduce(true));
         }
