@@ -24,16 +24,10 @@ namespace CoinChange
                             state.UseAsMuchAsPossibleOf(coin);
 
                             return CalculateChangeGiven(state.ForNextCoin())
-                                   .TryReduce(() => WithSmallerCoin(state.ForNextCoin()))
                                    .TryReduce(() => WithBacktrack(coin, state));
                         })
                         .Reduce(None.Value);
         }
-        
-        private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state) =>
-            state.CoinBeingProcessed
-                 .Map(_ => CalculateChangeGiven(state.ForNextCoin()))
-                 .Reduce(None.Value);
 
         private static Option<IEnumerable<Coin>> WithBacktrack(Coin coin, ChangeCalculationState state)
         {
