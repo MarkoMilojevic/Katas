@@ -89,7 +89,7 @@ namespace CoinChange
                 int availableNumberOfCoins = Math.Min(Remaining / coin, CoinsByCount[coin]);
 
                 Remaining -= coin * availableNumberOfCoins;
-                CoinsByCount[coin] = CoinsByCount[coin] - availableNumberOfCoins;
+                CoinsByCount[coin] -= availableNumberOfCoins;
                 Result.AddRange(Enumerable.Repeat(coin, availableNumberOfCoins));
             }
 
@@ -97,7 +97,7 @@ namespace CoinChange
             {
                 Result.RemoveAt(Result.Count - 1);
                 Remaining += coin;
-                CoinsByCount[coin] = CoinsByCount[coin] + 1;
+                CoinsByCount[coin] += 1;
             }
         }
     }
