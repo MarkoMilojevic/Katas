@@ -31,8 +31,7 @@ namespace CoinChange
         
         private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state) =>
             state.CoinBeingProcessed
-                 .Map(_ => CalculateChangeGiven(state.Next())
-                            .TryReduce(() => WithSmallerCoin(state.Next())))
+                 .Map(_ => CalculateChangeGiven(state.Next()))
                  .Reduce(None.Value);
 
         private static Option<IEnumerable<Coin>> WithBacktrack(Coin coin, ChangeCalculationState state)
