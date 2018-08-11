@@ -5,13 +5,13 @@ namespace CoinChange
 {
     public static class Coins
     {
-        public static IReadOnlyList<Coin> AllCoinsHighestToLowest { get; } = new[]
+        public static IReadOnlyList<Coin> HighestToLowest { get; } = new[]
         {
             Coin.OneDollar, Coin.FiftyCents, Coin.TwentyFiveCents, Coin.TenCents, Coin.FiveCents, Coin.OneCent
         };
 
-        public static IReadOnlyList<Coin> AllCoinsLowestToHighest { get; } = AllCoinsHighestToLowest.Reverse().ToList();
+        public static IReadOnlyList<Coin> LowestToHighest { get; } = HighestToLowest.Reverse().ToList();
 
-        public static int Count => AllCoinsHighestToLowest.Count;
+        public static int Count => HighestToLowest.Count;
     }
 }

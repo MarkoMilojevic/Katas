@@ -52,7 +52,7 @@ namespace CoinChange
             private IDictionary<Coin, int> CoinsByCount { get; }
 
             public bool IsPaidFully => Remaining == 0;
-            public Option<Coin> CoinBeingProcessed => CoinIndex < Coins.Count ? (Option<Coin>)Coins.AllCoinsHighestToLowest[CoinIndex] : None.Value;
+            public Option<Coin> CoinBeingProcessed => CoinIndex < Coins.Count ? (Option<Coin>) Coins.HighestToLowest[CoinIndex] : None.Value;
             public List<Coin> Result { get; }
 
             public ChangeCalculationState(IEnumerable<Coin> coins, int amount)
