@@ -18,12 +18,12 @@ namespace CoinChange
                         .Map(coin =>
                         {
                             if (!state.IsAvailable(coin))
-                                return CalculateChangeGiven(state.Next());
+                                return CalculateChangeGiven(state.ForNextCoin());
 
                             state.UseAsMuchAsPossibleOf(coin);
 
-                            return CalculateChangeGiven(state.Next())
-                                   .TryReduce(() => WithSmallerCoin(state.Next()))
+                            return CalculateChangeGiven(state.ForNextCoin())
+                                   .TryReduce(() => WithSmallerCoin(state.ForNextCoin()))
                                    .TryReduce(() => WithBacktrack(coin, state));
                         })
                         .Reduce(None.Value);
@@ -31,7 +31,7 @@ namespace CoinChange
         
         private static Option<IEnumerable<Coin>> WithSmallerCoin(ChangeCalculationState state) =>
             state.CoinBeingProcessed
-                 .Map(_ => CalculateChangeGiven(state.Next()))
+                 .Map(_ => CalculateChangeGiven(state.ForNextCoin()))
                  .Reduce(None.Value);
 
         private static Option<IEnumerable<Coin>> WithBacktrack(Coin coin, ChangeCalculationState state)
@@ -41,7 +41,7 @@ namespace CoinChange
 
             state.Unuse(coin);
 
-            return CalculateChangeGiven(state.Next())
+            return CalculateChangeGiven(state.ForNextCoin())
                    .TryReduce(() => WithBacktrack(coin, state));
         }
 
@@ -74,7 +74,7 @@ namespace CoinChange
                 Result = result;
             }
 
-            public ChangeCalculationState Next() =>
+            public ChangeCalculationState ForNextCoin() =>
                 new ChangeCalculationState(Remaining, CoinsByCount, CoinIndex + 1, Result);
 
             public bool IsAvailable(Coin coin) =>
