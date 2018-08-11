@@ -81,11 +81,11 @@ namespace CoinChange
 
             public void UseAsMuchAsPossibleOf(Coin coin)
             {
-                int availableNumberOfCoins = Math.Min(Remaining / coin, CoinsByCount[coin]);
+                int numberOfTimesCoinCanBeUsed = Math.Min(Remaining / coin, CoinsByCount[coin]);
 
-                Remaining -= coin * availableNumberOfCoins;
-                CoinsByCount[coin] -= availableNumberOfCoins;
-                UsedCoins.AddRange(Enumerable.Repeat(coin, availableNumberOfCoins));
+                Remaining -= coin * numberOfTimesCoinCanBeUsed;
+                CoinsByCount[coin] -= numberOfTimesCoinCanBeUsed;
+                UsedCoins.AddRange(Enumerable.Repeat(coin, numberOfTimesCoinCanBeUsed));
             }
 
             public void Unuse(Coin coin)
