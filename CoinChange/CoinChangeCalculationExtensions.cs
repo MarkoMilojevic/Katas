@@ -16,9 +16,6 @@ namespace CoinChange
                 : state.CoinBeingProcessed
                        .Map(coin =>
                        {
-                           if (!state.IsAvailable(coin))
-                               return CalculateChangeGiven(state.ForNextCoin());
-
                            state.UseAsMuchAsPossibleOf(coin);
 
                            return CalculateChangeGiven(state.ForNextCoin())
@@ -72,16 +69,16 @@ namespace CoinChange
 
             public ChangeCalculationState ForNextCoin() =>
                 new ChangeCalculationState(Remaining, CoinsByCount, CoinIndex + 1, UsedCoins);
-
-            public bool IsAvailable(Coin coin) =>
-                CoinsByCount.ContainsKey(coin);
-
+            
             public bool IsUsed(Coin coin) =>
                 CalculatedChange.Contains(coin);
 
             public void UseAsMuchAsPossibleOf(Coin coin)
             {
-                int numberOfTimesCoinCanBeUsed = Math.Min(Remaining / coin, CoinsByCount[coin]);
+                if (!CoinsByCount.ContainsKey(coin))
+                    return;
+
+                int numberOfTimesCoinCanBeUsed = Math.Min(CoinsByCount[coin], Remaining / coin);
 
                 Remaining -= coin * numberOfTimesCoinCanBeUsed;
                 CoinsByCount[coin] -= numberOfTimesCoinCanBeUsed;
