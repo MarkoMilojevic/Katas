@@ -71,7 +71,7 @@ namespace CoinChange
                 new ChangeCalculationState(Remaining, CoinsByCount, CoinIndex + 1, UsedCoins);
             
             public bool IsUsed(Coin coin) =>
-                CalculatedChange.Contains(coin);
+                UsedCoins.Contains(coin);
 
             public void UseAsMuchAsPossibleOf(Coin coin)
             {
