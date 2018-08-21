@@ -21,10 +21,10 @@ namespace Diamond
             char[] row = new string('-', diamondSize).ToCharArray();
 
             char charForCurrentRow = CharAt(rowIndex, diamondSize);
-            int columnIndex = CharColumnIndexGiven(rowIndex, diamondSize);
+            int charColumnIndex = CharColumnIndexGiven(rowIndex, diamondSize);
 
-            row[columnIndex] = charForCurrentRow;
-            row[row.Length - 1 - columnIndex] = charForCurrentRow;
+            row[charColumnIndex] = charForCurrentRow;
+            row[row.Length - 1 - charColumnIndex] = charForCurrentRow;
 
             return new string(row);
         }
