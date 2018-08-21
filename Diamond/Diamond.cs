@@ -8,15 +8,15 @@ namespace Diamond
         public static string CreateFor(char letter) =>
             Enumerable
                 .Range(0, DiamondSizeFor(letter))
-                .Select(index => CreateRow(letter, index))
+                .Select(index => CreateRowFor(letter, index))
                 .Join(Environment.NewLine);
 
         private static int DiamondSizeFor(char letter) =>
             2 * (letter - 'A' + 1) - 1;
 
-        private static string CreateRow(char letter, int rowIndex)
+        private static string CreateRowFor(char diamondLetter, int rowIndex)
         {
-            int diamondSize = DiamondSizeFor(letter);
+            int diamondSize = DiamondSizeFor(diamondLetter);
 
             char[] row = new string('-', diamondSize).ToCharArray();
 
