@@ -12,7 +12,7 @@ namespace Diamond
                 .Join(Environment.NewLine);
 
         private static int DiamondSize(char letter) =>
-            2 * (letter - 'A' + 1) - 1;
+            2 * (letter - 'A') + 1;
 
         private static string CreateRow(char diamondLetter, int rowIndex)
         {
