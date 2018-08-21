@@ -20,25 +20,23 @@ namespace Diamond
 
             char[] row = new string('-', diamondSize).ToCharArray();
 
-            char charForCurrentRow = CharAt(rowIndex, diamondSize);
-            int charColumnIndex = CharColumnIndexGiven(rowIndex, diamondSize);
+            int charIndex = CharIndexGiven(rowIndex, diamondSize);
+            char charForCurrentRow = CharFor(charIndex);
+            int middleColumnIndex = MiddleColumnIndexFor(diamondSize);
 
-            row[charColumnIndex] = charForCurrentRow;
-            row[row.Length - 1 - charColumnIndex] = charForCurrentRow;
+            row[middleColumnIndex - charIndex] = charForCurrentRow;
+            row[middleColumnIndex + charIndex] = charForCurrentRow;
 
             return new string(row);
         }
 
-        private static char CharAt(int rowIndex, int diamondSize) =>
-            (char)('A' + CharIndexGiven(rowIndex, diamondSize));
-
-        private static int CharColumnIndexGiven(int rowIndex, int diamondSize) =>
-            MiddleColumnIndexFor(diamondSize) - CharIndexGiven(rowIndex, diamondSize);
-
         private static int CharIndexGiven(int rowIndex, int diamondSize) =>
             rowIndex <= MiddleRowIndexFor(diamondSize)
                 ? rowIndex
-                : (diamondSize - 1) - rowIndex;
+                : diamondSize - 1 - rowIndex;
+
+        private static char CharFor(int charIndex) =>
+            (char)('A' + charIndex);
 
         private static int MiddleRowIndexFor(int diamondSize) =>
             (diamondSize - 1) / 2;
