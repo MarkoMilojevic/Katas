@@ -21,9 +21,9 @@ namespace Diamond
         {
             char[] row = new string('-', diamondSize).ToCharArray();
 
+            int middleColumnIndex = MiddleColumnIndex(diamondSize);
             int charIndex = CharIndex(rowIndex, diamondSize);
             char charForCurrentRow = CharAt(charIndex);
-            int middleColumnIndex = MiddleColumnIndex(diamondSize);
 
             row[middleColumnIndex - charIndex] = charForCurrentRow;
             row[middleColumnIndex + charIndex] = charForCurrentRow;
