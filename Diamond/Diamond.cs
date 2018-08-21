@@ -33,7 +33,7 @@ namespace Diamond
         private static int CharIndex(int rowIndex, int diamondSize) =>
             rowIndex <= MiddleRowIndex(diamondSize)
                 ? rowIndex
-                : diamondSize - 1 - rowIndex;
+                : (diamondSize - 1) - rowIndex;
 
         private static char CharAt(int charIndex) =>
             (char)('A' + charIndex);
