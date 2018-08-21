@@ -11,7 +11,7 @@ namespace Diamond
         private static string Create(int diamondSize) =>
             Enumerable
                 .Range(0, diamondSize)
-                .Select(index => CreateRow(index, diamondSize))
+                .Select(rowIndex => CreateRow(rowIndex, diamondSize))
                 .Join(Environment.NewLine);
 
         private static int DiamondSize(char letter) =>
