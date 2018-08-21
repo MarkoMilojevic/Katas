@@ -36,11 +36,14 @@ namespace Diamond
             MiddleColumnIndexFor(diamondSize) - CharIndexGiven(rowIndex, diamondSize);
 
         private static int CharIndexGiven(int rowIndex, int diamondSize) =>
-            rowIndex <= MiddleColumnIndexFor(diamondSize)
+            rowIndex <= MiddleRowIndexFor(diamondSize)
                 ? rowIndex
                 : (diamondSize - 1) - rowIndex;
 
-        private static int MiddleColumnIndexFor(int diamondSize) =>
+        private static int MiddleRowIndexFor(int diamondSize) =>
             (diamondSize - 1) / 2;
+
+        private static int MiddleColumnIndexFor(int diamondSize) =>
+            MiddleRowIndexFor(diamondSize);
     }
 }
