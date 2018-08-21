@@ -5,7 +5,7 @@ namespace Diamond
 {
     public class Diamond
     {
-        public static string CreateFor(char letter) =>
+        public static string Create(char letter) =>
             Enumerable
                 .Range(0, DiamondSize(letter))
                 .Select(index => CreateRow(letter, index))

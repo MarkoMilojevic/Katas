@@ -14,7 +14,7 @@ namespace Diamond.UnitTests
         [InlineData('Z', 51)]
         public void NumberOfRows(char diamondLetter, int expectedNumberOfRows)
         {
-            string diamond = Diamond.CreateFor(diamondLetter);
+            string diamond = Diamond.Create(diamondLetter);
 
             int numberOfRows = diamond.Split(new[] { Environment.NewLine }, StringSplitOptions.None).Length;
 
@@ -29,7 +29,7 @@ namespace Diamond.UnitTests
         [InlineData('Z', 51)]
         public void NumberOfColumns(char diamondLetter, int expectedNumberOfColumns)
         {
-            string diamond = Diamond.CreateFor(diamondLetter);
+            string diamond = Diamond.Create(diamondLetter);
 
             string[] rows = diamond.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
@@ -53,7 +53,7 @@ namespace Diamond.UnitTests
         [InlineData('C', 4, 'A')]
         public void RowContainsCorrectLetter(char diamondLetter, int rowIndex, char letter)
         {
-            string diamond = Diamond.CreateFor(diamondLetter);
+            string diamond = Diamond.Create(diamondLetter);
 
             string[] rows = diamond.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             string row = rows[rowIndex];
@@ -73,7 +73,7 @@ namespace Diamond.UnitTests
         [InlineData('C', 4, 'A', 2, 2)]
         public void LetterIsInCorrectColumns(char diamondLetter, int rowIndex, char letter, int firstColumnIndex, int secondColumnIndex)
         {
-            string diamond = Diamond.CreateFor(diamondLetter);
+            string diamond = Diamond.Create(diamondLetter);
 
             string[] rows = diamond.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             char[] row = rows[rowIndex].ToCharArray();
@@ -92,7 +92,7 @@ namespace Diamond.UnitTests
         {
             string expectedDiamond = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "z_diamond.txt"));
 
-            Assert.Equal(expectedDiamond, Diamond.CreateFor('Z'));
+            Assert.Equal(expectedDiamond, Diamond.Create('Z'));
         }
     }
 }
