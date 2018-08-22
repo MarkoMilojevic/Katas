@@ -14,9 +14,6 @@ namespace Diamond
                 .Select(rowIndex => CreateRow(rowIndex, diamondSize))
                 .Join(Environment.NewLine);
 
-        private static int DiamondSize(char letter) =>
-            2 * (letter - 'A') + 1;
-
         private static string CreateRow(int rowIndex, int diamondSize)
         {
             char[] row = new string('-', diamondSize).ToCharArray();
@@ -31,18 +28,24 @@ namespace Diamond
             return new string(row);
         }
 
+        private static int DiamondSize(char letter) =>
+            2 * (letter - 'A') + 1;
+
         private static int CharIndex(int rowIndex, int diamondSize) =>
             rowIndex <= MiddleRowIndex(diamondSize)
                 ? rowIndex
-                : (diamondSize - 1) - rowIndex;
+                : diamondSize - 1 - rowIndex;
 
         private static char CharAt(int charIndex) =>
-            (char)('A' + charIndex);
+            (char) ('A' + charIndex);
 
         private static int MiddleRowIndex(int diamondSize) =>
-            (diamondSize - 1) / 2;
+            MiddleIndex(diamondSize);
 
         private static int MiddleColumnIndex(int diamondSize) =>
-            MiddleRowIndex(diamondSize);
+            MiddleIndex(diamondSize);
+
+        private static int MiddleIndex(int diamondSize) =>
+            (diamondSize - 1) / 2;
     }
 }
