@@ -84,5 +84,29 @@ namespace RomanNumerals.Declarative
                                                  : new[] { weightedDigit })
                 .Select(weightedDigit => Roman[weightedDigit])
                 .Join(string.Empty);
+
+        public static int ToArabic(this string romanNumeral)
+        {
+            if (romanNumeral == string.Empty)
+                return 0;
+
+            int index = 0;
+            string left;
+            string right;
+
+            do
+            {
+                left = romanNumeral.Substring(0, romanNumeral.Length - index);
+                right = romanNumeral.Substring(romanNumeral.Length - index, index);
+
+                index += 1;
+            }
+            while (!Arabic.ContainsKey(left) && index < romanNumeral.Length);
+
+            if (!Arabic.ContainsKey(left))
+                throw new ArgumentException($"Provided Roman numeral '{romanNumeral}' is invalid.", nameof(romanNumeral));
+
+            return Arabic[left] + ToArabic(right);
+        }
     }
 }

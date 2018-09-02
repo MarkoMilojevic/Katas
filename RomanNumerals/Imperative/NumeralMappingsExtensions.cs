@@ -96,17 +96,12 @@ namespace RomanNumerals.Imperative
             return romanNumeral;
         }
 
-        public static int ToArabic(this string romanNumeral) =>
-            romanNumeral.ToArabic(0);
-
-        private static int ToArabic(this string romanNumeral, int index)
+        public static int ToArabic(this string romanNumeral)
         {
             if (romanNumeral == string.Empty)
                 return 0;
 
-            if (index >= romanNumeral.Length)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
+            int index = 0;
             string left;
             string right;
 
@@ -120,7 +115,7 @@ namespace RomanNumerals.Imperative
             while (!Arabic.ContainsKey(left) && index < romanNumeral.Length);
 
             if (!Arabic.ContainsKey(left))
-                throw new ArgumentException(nameof(romanNumeral));
+                throw new ArgumentException($"Provided Roman numeral '{romanNumeral}' is invalid.", nameof(romanNumeral));
 
             return Arabic[left] + ToArabic(right);
         }

@@ -20,6 +20,11 @@ namespace RomanNumerals.UnitTests
         [Theory]
         [MemberData(nameof(Params))]
         public void ToArabicDeclarative(int expectedNumber, string romanNumeral) =>
+            Assert.Equal(expectedNumber, NumeralMappingsDeclarative.ToArabic(romanNumeral));
+
+        [Theory]
+        [MemberData(nameof(Params))]
+        public void ToArabicImperative(int expectedNumber, string romanNumeral) =>
             Assert.Equal(expectedNumber, NumeralMappingsImperative.ToArabic(romanNumeral));
 
         public static IEnumerable<object[]> Params()
