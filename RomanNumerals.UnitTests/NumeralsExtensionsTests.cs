@@ -8,16 +8,21 @@ namespace RomanNumerals.UnitTests
     public class NumeralsExtensionsTests
     {
         [Theory]
-        [MemberData(nameof(ToRomanParams))]
+        [MemberData(nameof(Params))]
         public void ToRomanDeclarative(int number, string expectedRomanNumeral) =>
             Assert.Equal(expectedRomanNumeral, NumeralMappingsDeclarative.ToRoman(number));
 
         [Theory]
-        [MemberData(nameof(ToRomanParams))]
+        [MemberData(nameof(Params))]
         public void ToRomanImperative(int number, string expectedRomanNumeral) =>
             Assert.Equal(expectedRomanNumeral, NumeralMappingsImperative.ToRoman(number));
 
-        public static IEnumerable<object[]> ToRomanParams()
+        [Theory]
+        [MemberData(nameof(Params))]
+        public void ToArabicDeclarative(int expectedNumber, string romanNumeral) =>
+            Assert.Equal(expectedNumber, NumeralMappingsImperative.ToArabic(romanNumeral));
+
+        public static IEnumerable<object[]> Params()
         {
             yield return new object[] { 0, "" };
             yield return new object[] { 1, "I" };
