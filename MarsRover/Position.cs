@@ -7,27 +7,36 @@ namespace MarsRover
         public int X { get; }
         public int Y { get; }
         public Direction Direction { get; }
-        public int GridSize { get; }
+        public Grid Grid { get; }
 
-        public Position(int x, int y, Direction direction, int gridSize)
+        public Position(int x, int y, Direction direction, Grid grid)
         {
-            if (gridSize < 0)
-                throw new ArgumentOutOfRangeException(nameof(gridSize));
+            if (grid == null)
+                throw new ArgumentNullException(nameof(grid));
 
-            if (Math.Abs(x) >= gridSize || Math.Abs(y) >= gridSize)
+            if (x < 0 || x >= grid.Size || y < 0 || y >= grid.Size)
                 throw new ArgumentOutOfRangeException();
 
             X = x;
             Y = y;
-            Direction = direction;
-            GridSize = gridSize;
+            Direction = direction ?? throw new ArgumentNullException(nameof(direction));
+            Grid = grid;
         }
 
-        public Position Translate(int dx, int dy) =>
-            new Position((X + dx + GridSize) % GridSize, (Y + dy + GridSize) % GridSize, Direction, GridSize);
+        public Position Translate(int dx, int dy)
+        {
+            var newPosition = new Position((X + dx + Grid.Size) % Grid.Size, (Y + dy + Grid.Size) % Grid.Size, Direction, Grid);
+
+            return newPosition.ContainsObstacle()
+                       ? this
+                       : newPosition;
+        }
 
         public Position Face(Direction direction) =>
-            new Position(X, Y, direction, GridSize);
+            new Position(X, Y, direction, Grid);
+
+        public bool ContainsObstacle() =>
+            Grid.ContainsObstacle(X, Y);
 
         public bool Equals(Position other)
         {

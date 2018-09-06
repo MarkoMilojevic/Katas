@@ -15,13 +15,24 @@ namespace MarsRover.UnitTests
         private int _x = 0;
         private int _y = 0;
         private Direction _direction = Direction.North;
-        private int _gridSize = int.MaxValue;
+        private Grid _grid = new Grid(int.MaxValue / 2);
 
-        public PositionBuilder WithCoordinates(int x, int y, int gridSize)
+        public PositionBuilder WithCoordinates(int x, int y)
         {
             _x = x;
             _y = y;
-            _gridSize = gridSize;
+            return this;
+        }
+
+        public PositionBuilder WithGridSize(int size)
+        {
+            _grid = new Grid(size);
+            return this;
+        }
+
+        public PositionBuilder WithGrid(int size, params (int x, int y)[] obstacleCoordinates)
+        {
+            _grid = new Grid(size, obstacleCoordinates);
             return this;
         }
 
@@ -32,6 +43,6 @@ namespace MarsRover.UnitTests
         }
 
         public Position Build() =>
-            new Position(_x, _y, _direction, _gridSize);                                                                           
+            new Position(_x, _y, _direction, _grid);
     }
 }

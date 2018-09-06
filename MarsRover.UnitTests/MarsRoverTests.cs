@@ -39,7 +39,8 @@ namespace MarsRover.UnitTests
         public void Move(int x, int y, char direction, int gridSize, string instruction, int expectedX, int expectedY)
         {
             Position position = APosition()
-                                .WithCoordinates(x, y, gridSize)
+                                .WithCoordinates(x, y)
+                                .WithGridSize(gridSize)
                                 .Facing(direction)
                                 .Build();
 
@@ -50,8 +51,33 @@ namespace MarsRover.UnitTests
             MarsRover moved = rover.Execute(instruction);
 
             Position expectedPosition = APosition()
-                                        .WithCoordinates(expectedX, expectedY, gridSize)
+                                        .WithCoordinates(expectedX, expectedY)
+                                        .WithGridSize(gridSize)
                                         .Facing(direction)
+                                        .Build();
+
+            Assert.Equal(expectedPosition, moved.Position);
+        }
+
+        [Fact]
+        public void MoveAgainstObstacle()
+        {
+            Position position = APosition()
+                                .WithCoordinates(0, 0)
+                                .WithGrid(10, (0, 1))
+                                .Facing('N')
+                                .Build();
+
+            MarsRover rover = ARover()
+                              .With(position)
+                              .Build();
+
+            MarsRover moved = rover.Execute("f");
+
+            Position expectedPosition = APosition()
+                                        .WithCoordinates(0, 0)
+                                        .WithGrid(10, (0, 1))
+                                        .Facing('N')
                                         .Build();
 
             Assert.Equal(expectedPosition, moved.Position);
