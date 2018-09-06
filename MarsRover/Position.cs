@@ -35,7 +35,7 @@ namespace MarsRover
         public Position Face(Direction direction) =>
             new Position(X, Y, direction, Grid);
 
-        public bool ContainsObstacle() =>
+        private bool ContainsObstacle() =>
             Grid.ContainsObstacle(X, Y);
 
         public bool Equals(Position other)
