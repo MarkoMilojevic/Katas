@@ -25,7 +25,7 @@ namespace MarsRover.UnitTests
 
         [Fact]
         public void RoverReceivesMoveInstructions() =>
-            ARover().Build().Execute("fblr");
+            ARover().Build().Execute("fblrFBLR");
 
         [Theory]
         [InlineData(0, 0, 'N', 10, "f", 0, 1)]
