@@ -8,16 +8,16 @@ namespace MarsRover
         {
             switch (instruction)
             {
-                case 'f':
+                case 'f': case 'F':
                     return position.TranslateForwards();
 
-                case 'b':
+                case 'b': case 'B':
                     return position.TranslateBackwards();
 
-                case 'l':
+                case 'l': case 'L':
                     return position.FaceLeft();
 
-                case 'r':
+                case 'r': case 'R':
                     return position.FaceRight();
 
                 default:
