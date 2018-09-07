@@ -37,7 +37,7 @@ namespace MarsRover
             new Position(X, Y, direction, Grid);
 
         private bool ContainsObstacle() =>
-            Grid.ContainsObstacle(X, Y);
+            Grid.ContainsObstacleAt(X, Y);
 
         public bool Equals(Position other)
         {

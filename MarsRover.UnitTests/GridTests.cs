@@ -9,7 +9,7 @@ namespace MarsRover.UnitTests
         {
             var grid = new Grid(10, (5, 5));
 
-            Assert.True(grid.ContainsObstacle(5, 5));
+            Assert.True(grid.ContainsObstacleAt(5, 5));
         }
     }
 }

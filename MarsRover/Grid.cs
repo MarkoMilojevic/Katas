@@ -29,7 +29,7 @@ namespace MarsRover
             ObstacleCoordinates = obstacleCoordinates.ToHashSet() ?? throw new ArgumentNullException(nameof(obstacleCoordinates));
         }
 
-        public bool ContainsObstacle(int x, int y) =>
+        public bool ContainsObstacleAt(int x, int y) =>
             ObstacleCoordinates.Contains((x, y));
     }
 }
