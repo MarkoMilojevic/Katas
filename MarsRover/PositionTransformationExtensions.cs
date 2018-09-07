@@ -62,6 +62,7 @@ namespace MarsRover
 
             return (-dx, -dy);
         }
+        
         private static Position FaceLeft(this Position position) =>
             position.Face(Direction.Left[position.Direction]);
 
