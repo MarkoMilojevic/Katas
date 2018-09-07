@@ -4,23 +4,7 @@ namespace MarsRover
 {
     public static class PositionTransformationExtensions
     {
-        public static Position Transform(this Position position, string instructions)
-        {
-            instructions = instructions.ToLower();
-
-            foreach (char instruction in instructions)
-            {
-                Position newPosition = position.Transform(instruction);
-                if (position == newPosition)
-                    return position;
-
-                position = newPosition;
-            }
-
-            return position;
-        }
-
-        private static Position Transform(this Position position, char instruction)
+        public static Position Transform(this Position position, char instruction)
         {
             switch (instruction)
             {
