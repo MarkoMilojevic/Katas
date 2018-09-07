@@ -13,7 +13,6 @@ namespace MarsRover
         {
             Position currentPosition = Position;
 
-            instructions = instructions.ToLower();
             foreach (char instruction in instructions)
             {
                 Position newPosition = currentPosition.Transform(instruction);
