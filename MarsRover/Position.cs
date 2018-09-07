@@ -4,10 +4,11 @@ namespace MarsRover
 {
     public class Position : IEquatable<Position>
     {
+        private Grid Grid { get; }
+
         public int X { get; }
         public int Y { get; }
         public Direction Direction { get; }
-        public Grid Grid { get; }
 
         public Position(int x, int y, Direction direction, Grid grid)
         {
