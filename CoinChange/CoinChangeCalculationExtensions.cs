@@ -59,12 +59,12 @@ namespace CoinChange
                 UsedCoins = new List<Coin>();
             }
 
-            private ChangeCalculationState(int remaining, IDictionary<Coin, int> coinsByCount, int coinIndex, List<Coin> result)
+            private ChangeCalculationState(int remaining, IDictionary<Coin, int> coinsByCount, int coinIndex, List<Coin> usedCoins)
             {
                 Remaining = remaining;
                 CoinsByCount = coinsByCount;
                 CoinIndex = coinIndex;
-                UsedCoins = result;
+                UsedCoins = usedCoins;
             }
 
             public ChangeCalculationState ForNextCoin() =>
