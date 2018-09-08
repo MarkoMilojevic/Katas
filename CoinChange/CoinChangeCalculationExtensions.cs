@@ -8,7 +8,7 @@ namespace CoinChange
     public static class CoinChangeCalculationExtensions
     {
         public static Option<IEnumerable<Coin>> ChangeFor(this IEnumerable<Coin> coins, int amount) =>
-            CalculateChange(new ChangeCalculationState(coins, amount));
+            CalculateChange(ChangeCalculationState.Initialize(coins, amount));
 
         private static Option<IEnumerable<Coin>> CalculateChange(ChangeCalculationState state) =>
             state.IsChangePaidOut
@@ -48,15 +48,13 @@ namespace CoinChange
             public Option<Coin> CoinBeingProcessed => CoinIndex < Coins.Count ? (Option<Coin>) Coins.HighestToLowest[CoinIndex] : None.Value;
             public IEnumerable<Coin> CalculatedChange => UsedCoins;
 
-            public ChangeCalculationState(IEnumerable<Coin> coins, int amount)
+            public static ChangeCalculationState Initialize(IEnumerable<Coin> coins, int amount)
             {
-                Remaining = amount;
-                CoinsByCount = coins
-                               .GroupBy(coin => coin)
-                               .ToDictionary(group => group.Key, group => group.Count());
+                Dictionary<Coin, int> coinsByCount = coins
+                                                     .GroupBy(coin => coin)
+                                                     .ToDictionary(group => group.Key, group => group.Count());
 
-                CoinIndex = 0;
-                UsedCoins = new List<Coin>();
+                return new ChangeCalculationState(amount, coinsByCount, 0, new List<Coin>());
             }
 
             private ChangeCalculationState(int remaining, IDictionary<Coin, int> coinsByCount, int coinIndex, List<Coin> usedCoins)
