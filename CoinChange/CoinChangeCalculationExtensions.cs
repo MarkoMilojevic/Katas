@@ -8,17 +8,17 @@ namespace CoinChange
     public static class CoinChangeCalculationExtensions
     {
         public static Option<IEnumerable<Coin>> ChangeFor(this IEnumerable<Coin> coins, int amount) =>
-            CalculateChangeGiven(new ChangeCalculationState(coins, amount));
+            CalculateChange(new ChangeCalculationState(coins, amount));
 
-        private static Option<IEnumerable<Coin>> CalculateChangeGiven(ChangeCalculationState state) =>
+        private static Option<IEnumerable<Coin>> CalculateChange(ChangeCalculationState state) =>
             state.IsChangePaidOut
                 ? new Some<IEnumerable<Coin>>(state.CalculatedChange)
                 : state.CoinBeingProcessed
                        .Map(coin =>
                        {
-                           state.UseAsMuchAsPossibleOf(coin);
+                           state.UseAsMuchAsPossible(coin);
 
-                           return CalculateChangeGiven(state.ForNextCoin())
+                           return CalculateChange(state.ForNextCoin())
                                .TryReduce(() => Backtrack(state));
                        })
                        .Reduce(None.Value);
@@ -32,7 +32,7 @@ namespace CoinChange
 
                      state.Unuse(coin);
 
-                     return CalculateChangeGiven(state.ForNextCoin())
+                     return CalculateChange(state.ForNextCoin())
                          .TryReduce(() => Backtrack(state));
                  })
                  .Reduce(None.Value);
@@ -73,7 +73,7 @@ namespace CoinChange
             public bool IsUsed(Coin coin) =>
                 UsedCoins.Contains(coin);
 
-            public void UseAsMuchAsPossibleOf(Coin coin)
+            public void UseAsMuchAsPossible(Coin coin)
             {
                 if (!CoinsByCount.ContainsKey(coin))
                     return;
