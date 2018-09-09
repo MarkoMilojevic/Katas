@@ -164,5 +164,18 @@ namespace GildedRose.UnitTests
 
             Assert.Equal(maxQuality, items[0].Quality);
         }
+
+        [Theory]
+        [InlineData(10, 10, 8)]
+        [InlineData(10, 0, 6)]
+        public void ConjuredQualityDegradesTwiceAsFastAsNormalItems(int quality, int sellIn, int expectedQuality)
+        {
+            var items = new List<Item> { new Item { Name = GildedRose.Conjured, SellIn = sellIn, Quality = quality } };
+
+            var gildedRose = new GildedRose(items);
+            gildedRose.UpdateQuality();
+
+            Assert.Equal(expectedQuality, items[0].Quality);
+        }
     }
 }

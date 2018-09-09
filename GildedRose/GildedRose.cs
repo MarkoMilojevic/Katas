@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GildedRose
 {
     public class GildedRose
     {
+        private const int MinQuality = 0;
+        private const int MaxQuality = 50;
+
         public const string AgedBrie = "Aged Brie";
         public const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
         public const string Sulfuras = "Sulfuras, Hand of Ragnaros";
+        public const string Conjured = "Conjured Mana Cake";
 
         private IList<Item> Items { get; }
 
@@ -15,78 +20,81 @@ namespace GildedRose
 
         public void UpdateQuality()
         {
-            for (int i = 0; i < Items.Count; i++)
+            foreach (Item item in Items)
+                UpdateQuality(item);
+        }
+
+        private static void UpdateQuality(Item item)
+        {
+            if (item.Name == Sulfuras)
+                return;
+
+            item.SellIn = item.SellIn - 1;
+
+            switch (item.Name)
             {
-                if (Items[i].Name != AgedBrie && Items[i].Name != BackstagePasses)
-                {
-                    if (Items[i].Quality > 0)
-                    {
-                        if (Items[i].Name != Sulfuras)
-                        {
-                            Items[i].Quality = Items[i].Quality - 1;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        Items[i].Quality = Items[i].Quality + 1;
+                case AgedBrie:
+                    item.Quality = AgedBrieQuality(item.SellIn, item.Quality);
+                    break;
 
-                        if (Items[i].Name == BackstagePasses)
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
+                case BackstagePasses:
+                    item.Quality = BackstagePassesQuality(item.SellIn, item.Quality);
+                    break;
 
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
+                case Conjured:
+                    item.Quality = ConjuredQuality(item.SellIn, item.Quality);
+                    break;
 
-                if (Items[i].Name != Sulfuras)
-                {
-                    Items[i].SellIn = Items[i].SellIn - 1;
-                }
-
-                if (Items[i].SellIn < 0)
-                {
-                    if (Items[i].Name != AgedBrie)
-                    {
-                        if (Items[i].Name != BackstagePasses)
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != Sulfuras)
-                                {
-                                    Items[i].Quality = Items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
-                    }
-                }
+                default:
+                    item.Quality = Quality(item.SellIn, item.Quality);
+                    break;
             }
+        }
+
+        private static int AgedBrieQuality(int sellIn, int quality)
+        {
+            quality = quality + 1;
+
+            if (sellIn < 0)
+                quality = quality + 1;
+
+            return quality < MaxQuality ? quality : MaxQuality;
+        }
+
+        private static int BackstagePassesQuality(int sellIn, int quality)
+        {
+            if (sellIn < 0)
+                return 0;
+
+            quality = quality + 1;
+
+            if (sellIn < 10)
+                quality = quality + 1;
+
+            if (sellIn < 5)
+                quality = quality + 1;
+
+            return quality < MaxQuality ? quality : MaxQuality;
+        }
+
+        private static int ConjuredQuality(int sellIn, int quality)
+        {
+            quality = quality - 2;
+
+            if (sellIn < 0)
+                quality = quality - 2;
+
+            return quality > MinQuality ? quality : MinQuality;
+        }
+
+        private static int Quality(int sellIn, int quality)
+        {
+            quality = quality - 1;
+
+            if (sellIn < 0)
+                quality = quality - 1;
+
+            return quality > MinQuality ? quality : MinQuality;
         }
     }
 }
