@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace GildedRose
 {
@@ -53,10 +52,10 @@ namespace GildedRose
 
         private static int AgedBrieQuality(int sellIn, int quality)
         {
-            quality = quality + 1;
+            quality += 1;
 
             if (sellIn < 0)
-                quality = quality + 1;
+                quality += 1;
 
             return quality < MaxQuality ? quality : MaxQuality;
         }
@@ -66,33 +65,33 @@ namespace GildedRose
             if (sellIn < 0)
                 return 0;
 
-            quality = quality + 1;
+            quality += 1;
 
             if (sellIn < 10)
-                quality = quality + 1;
+                quality += 1;
 
             if (sellIn < 5)
-                quality = quality + 1;
+                quality += 1;
 
             return quality < MaxQuality ? quality : MaxQuality;
         }
 
         private static int ConjuredQuality(int sellIn, int quality)
         {
-            quality = quality - 2;
+            quality -= 2;
 
             if (sellIn < 0)
-                quality = quality - 2;
+                quality -= 2;
 
             return quality > MinQuality ? quality : MinQuality;
         }
 
         private static int Quality(int sellIn, int quality)
         {
-            quality = quality - 1;
+            quality -= 1;
 
             if (sellIn < 0)
-                quality = quality - 1;
+                quality -= 1;
 
             return quality > MinQuality ? quality : MinQuality;
         }

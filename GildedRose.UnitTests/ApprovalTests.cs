@@ -56,7 +56,6 @@ namespace GildedRose.UnitTests
                     SellIn = 5,
                     Quality = 49
                 },
-                // this conjured item does not work properly yet
                 new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 }
             };
 
@@ -66,9 +65,9 @@ namespace GildedRose.UnitTests
             {
                 Console.WriteLine("-------- day " + i + " --------");
                 Console.WriteLine("name, sellIn, quality");
-                for (int j = 0; j < items.Count; j++)
+                foreach (Item item in items)
                 {
-                    Console.WriteLine(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
+                    Console.WriteLine(item.Name + ", " + item.SellIn + ", " + item.Quality);
                 }
 
                 Console.WriteLine("");
