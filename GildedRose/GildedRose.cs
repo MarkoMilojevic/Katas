@@ -4,8 +4,8 @@ namespace GildedRose
 {
     public class GildedRose
     {
-        private const int MinQuality = 0;
-        private const int MaxQuality = 50;
+        public const int MinQuality = 0;
+        public const int MaxQuality = 50;
 
         public const string AgedBrie = "Aged Brie";
         public const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";

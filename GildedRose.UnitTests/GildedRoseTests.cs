@@ -11,7 +11,7 @@ namespace GildedRose.UnitTests
             const int quality = 10;
             const int sellIn = 10;
 
-            var items = new List<Item> { new Item { Name = "Item", SellIn = sellIn, Quality = quality } };
+            var items = new List<Item> { new Item { Name = "Normal item", SellIn = sellIn, Quality = quality } };
 
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
@@ -37,7 +37,7 @@ namespace GildedRose.UnitTests
         [Fact]
         public void QualityOfAnItemIsNeverNegative()
         {
-            const int quality = 0;
+            const int quality = GildedRose.MinQuality;
             const int sellIn = 0;
 
             var items = new List<Item> { new Item { Name = "Item", SellIn = sellIn, Quality = quality } };
@@ -129,7 +129,7 @@ namespace GildedRose.UnitTests
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
 
-            Assert.Equal(0, items[0].Quality);
+            Assert.Equal(GildedRose.MinQuality, items[0].Quality);
         }
 
         [Fact]
@@ -155,14 +155,12 @@ namespace GildedRose.UnitTests
         [InlineData(GildedRose.BackstagePasses, 5)]
         public void ItemCannotHaveHigherQualityThanFiftyUnlessSulfuras(string itemName, int sellIn)
         {
-            const int maxQuality = 50;
-
-            var items = new List<Item> { new Item { Name = itemName, SellIn = sellIn, Quality = maxQuality } };
+            var items = new List<Item> { new Item { Name = itemName, SellIn = sellIn, Quality = GildedRose.MaxQuality } };
 
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
 
-            Assert.Equal(maxQuality, items[0].Quality);
+            Assert.Equal(GildedRose.MaxQuality, items[0].Quality);
         }
 
         [Theory]
