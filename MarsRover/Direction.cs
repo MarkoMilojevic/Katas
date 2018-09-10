@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MarsRover
 {
-    public class Direction : IEquatable<Direction>
+    public sealed class Direction : IEquatable<Direction>
     {
         public static Direction North { get; } = new Direction(nameof(North));
         public static Direction South { get; } = new Direction(nameof(South));

@@ -74,11 +74,7 @@ namespace MarsRover.UnitTests
 
             MarsRover moved = rover.Execute("f");
 
-            Position expectedPosition = APosition()
-                                        .WithCoordinates(0, 0)
-                                        .WithGrid(10, (0, 1))
-                                        .Facing('N')
-                                        .Build();
+            Position expectedPosition = position;
 
             Assert.Equal(expectedPosition, moved.Position);
         }

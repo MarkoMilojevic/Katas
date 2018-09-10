@@ -2,7 +2,7 @@
 
 namespace MarsRover
 {
-    public class Position : IEquatable<Position>
+    public sealed class Position : IEquatable<Position>
     {
         private Grid Grid { get; }
 
