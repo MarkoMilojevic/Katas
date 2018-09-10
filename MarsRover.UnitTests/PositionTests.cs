@@ -14,7 +14,7 @@ namespace MarsRover.UnitTests
         [InlineData(0, 0, 10, 0, -1, 0, 9)]
         [InlineData(0, 0, 10, -1, 0, 9, 0)]
         [InlineData(0, 0, 10, -1, -1, 9, 9)]
-        public void Move(int x, int y, int gridSize, int dx, int dy, int expectedX, int expectedY)
+        public void Translate(int x, int y, int gridSize, int dx, int dy, int expectedX, int expectedY)
         {
             Position position = APosition()
                                 .WithCoordinates(x, y)
@@ -36,7 +36,7 @@ namespace MarsRover.UnitTests
         [InlineData('S')]
         [InlineData('E')]
         [InlineData('W')]
-        public void Rotate(char direction)
+        public void Face(char direction)
         {
             Position position = APosition()
                                 .Build();

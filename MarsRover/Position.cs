@@ -28,8 +28,8 @@ namespace MarsRover
 
         public Position Translate(int dx, int dy)
         {
-            int x = (X + dx + Grid.Size) % Grid.Size;
-            int y = (Y + dy + Grid.Size) % Grid.Size;
+            int x = (X + dx).Mod(Grid.Size);
+            int y = (Y + dy).Mod(Grid.Size);
 
             return Grid.ContainsObstacleAt(x, y)
                        ? this
