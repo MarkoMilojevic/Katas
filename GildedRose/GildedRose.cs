@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRose
 {
@@ -45,19 +46,16 @@ namespace GildedRose
                     break;
 
                 default:
-                    item.Quality = Quality(item.SellIn, item.Quality);
+                    item.Quality = NormalQuality(item.SellIn, item.Quality);
                     break;
             }
         }
 
         private static int AgedBrieQuality(int sellIn, int quality)
         {
-            quality += 1;
+            quality += sellIn >= 0 ? 1 : 2;
 
-            if (sellIn < 0)
-                quality += 1;
-
-            return quality < MaxQuality ? quality : MaxQuality;
+            return Math.Min(quality, MaxQuality);
         }
 
         private static int BackstagePassesQuality(int sellIn, int quality)
@@ -65,35 +63,28 @@ namespace GildedRose
             if (sellIn < 0)
                 return 0;
 
-            quality += 1;
-
-            if (sellIn < 10)
-                quality += 1;
-
             if (sellIn < 5)
+                quality += 3;
+            else if (sellIn < 10)
+                quality += 2;
+            else
                 quality += 1;
 
-            return quality < MaxQuality ? quality : MaxQuality;
+            return Math.Min(quality, MaxQuality);
         }
 
         private static int ConjuredQuality(int sellIn, int quality)
         {
-            quality -= 2;
+            quality -= sellIn >= 0 ? 2 : 4;
 
-            if (sellIn < 0)
-                quality -= 2;
-
-            return quality > MinQuality ? quality : MinQuality;
+            return Math.Max(quality, MinQuality);
         }
 
-        private static int Quality(int sellIn, int quality)
+        private static int NormalQuality(int sellIn, int quality)
         {
-            quality -= 1;
+            quality -= sellIn >= 0 ? 1 : 2;
 
-            if (sellIn < 0)
-                quality -= 1;
-
-            return quality > MinQuality ? quality : MinQuality;
+            return Math.Max(quality, MinQuality);
         }
     }
 }
