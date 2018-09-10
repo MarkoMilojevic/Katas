@@ -33,6 +33,6 @@ namespace MarsRover
         }
 
         public override string ToString() => 
-            $"Rover ({Position})";
+            $"Position [{Position}]";
     }
 }

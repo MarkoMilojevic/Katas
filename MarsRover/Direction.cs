@@ -37,6 +37,6 @@ namespace MarsRover
         }
 
         public override string ToString() =>
-            $"Direction: {Name}";
+            $"{Name}";
     }
 }
