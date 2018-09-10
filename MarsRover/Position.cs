@@ -28,18 +28,16 @@ namespace MarsRover
 
         public Position Translate(int dx, int dy)
         {
-            var newPosition = new Position((X + dx + Grid.Size) % Grid.Size, (Y + dy + Grid.Size) % Grid.Size, Direction, Grid);
+            int x = (X + dx + Grid.Size) % Grid.Size;
+            int y = (Y + dy + Grid.Size) % Grid.Size;
 
-            return newPosition.ContainsObstacle()
+            return Grid.ContainsObstacleAt(x, y)
                        ? this
-                       : newPosition;
+                       : new Position(x, y, Direction, Grid);
         }
 
         public Position Face(Direction direction) =>
             new Position(X, Y, direction, Grid);
-
-        private bool ContainsObstacle() =>
-            Grid.ContainsObstacleAt(X, Y);
 
         protected override IEnumerable<object> GetAtomicValues()
         {
