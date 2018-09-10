@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using FunctionalExtensions;
 
 namespace MarsRover
 {
-    public class MarsRover
+    public class MarsRover : ValueObject
     {
         public Position Position { get; }
 
@@ -24,5 +26,13 @@ namespace MarsRover
 
             return new MarsRover(currentPosition);
         }
+
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return Position;
+        }
+
+        public override string ToString() => 
+            $"Rover ({Position})";
     }
 }

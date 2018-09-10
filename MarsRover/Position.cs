@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using FunctionalExtensions;
 
 namespace MarsRover
 {
-    public sealed class Position : IEquatable<Position>
+    public sealed class Position : ValueObject
     {
         private Grid Grid { get; }
 
@@ -39,38 +41,12 @@ namespace MarsRover
         private bool ContainsObstacle() =>
             Grid.ContainsObstacleAt(X, Y);
 
-        public bool Equals(Position other)
+        protected override IEnumerable<object> GetAtomicValues()
         {
-            if (other is null)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            return X == other.X
-                && Y == other.Y
-                && Direction == other.Direction;
+            yield return X;
+            yield return Y;
+            yield return Direction;
         }
-
-        public override bool Equals(object obj) =>
-            Equals(obj as Position);
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = X;
-                hashCode = (hashCode * 397) ^ Y;
-                hashCode = (hashCode * 397) ^ Direction.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==(Position left, Position right) =>
-            !(left is null ^ right is null) && (left is null || left.Equals(right));
-
-        public static bool operator !=(Position left, Position right) =>
-            !(left == right);
 
         public override string ToString() =>
             $"X: {X}, Y: {Y}, {Direction}";

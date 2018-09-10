@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarsRover", "MarsRover\Mars
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarsRover.UnitTests", "MarsRover.UnitTests\MarsRover.UnitTests.csproj", "{63FC5D8F-DE9A-419D-862A-39443C873A14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRose", "GildedRose\GildedRose.csproj", "{DA1EB90E-6A1E-455F-8D4D-3CE529DB3CBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GildedRose", "GildedRose\GildedRose.csproj", "{DA1EB90E-6A1E-455F-8D4D-3CE529DB3CBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRose.UnitTests", "GildedRose.UnitTests\GildedRose.UnitTests.csproj", "{0CE83092-774C-4FDD-94D6-57560371B500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GildedRose.UnitTests", "GildedRose.UnitTests\GildedRose.UnitTests.csproj", "{0CE83092-774C-4FDD-94D6-57560371B500}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalExtensions", "FunctionalExtensions\FunctionalExtensions.csproj", "{6D333397-9A24-43A2-966D-E7677888EE7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{0CE83092-774C-4FDD-94D6-57560371B500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE83092-774C-4FDD-94D6-57560371B500}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE83092-774C-4FDD-94D6-57560371B500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D333397-9A24-43A2-966D-E7677888EE7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D333397-9A24-43A2-966D-E7677888EE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D333397-9A24-43A2-966D-E7677888EE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D333397-9A24-43A2-966D-E7677888EE7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
