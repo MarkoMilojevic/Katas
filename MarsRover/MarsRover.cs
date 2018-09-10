@@ -4,7 +4,7 @@ using FunctionalExtensions;
 
 namespace MarsRover
 {
-    public class MarsRover : ValueObject
+    public sealed class MarsRover : ValueObject
     {
         public Position Position { get; }
 
