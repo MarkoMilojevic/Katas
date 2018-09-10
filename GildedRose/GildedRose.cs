@@ -60,15 +60,23 @@ namespace GildedRose
 
         private static int BackstagePassesQuality(int sellIn, int quality)
         {
-            if (sellIn < 0)
-                return 0;
+            switch (sellIn)
+            {
+                case int value when value < 0:
+                    return 0;
 
-            if (sellIn < 5)
-                quality += 3;
-            else if (sellIn < 10)
-                quality += 2;
-            else
-                quality += 1;
+                case int value when value < 5:
+                    quality += 3;
+                    break;
+
+                case int value when value < 10:
+                    quality += 2;
+                    break;
+
+                default:
+                    quality += 1;
+                    break;
+            }
 
             return Math.Min(quality, MaxQuality);
         }
