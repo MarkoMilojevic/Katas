@@ -26,12 +26,13 @@ namespace GildedRose.UnitTests
             const int quality = 10;
             const int sellIn = 0;
 
-            var items = new List<Item> { new Item { Name = "Item", SellIn = sellIn, Quality = quality } };
+            var items = new List<Item> { new Item { Name = "Normal item", SellIn = sellIn, Quality = quality } };
 
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality - 2, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -40,12 +41,13 @@ namespace GildedRose.UnitTests
             const int quality = GildedRose.MinQuality;
             const int sellIn = 0;
 
-            var items = new List<Item> { new Item { Name = "Item", SellIn = sellIn, Quality = quality } };
+            var items = new List<Item> { new Item { Name = "Normal item", SellIn = sellIn, Quality = quality } };
 
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -60,6 +62,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality + 1, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -74,6 +77,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality + 2, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -88,6 +92,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality + 1, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -102,6 +107,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality + 2, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -116,6 +122,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(quality + 3, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -130,6 +137,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(GildedRose.MinQuality, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Fact]
@@ -161,6 +169,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(GildedRose.MaxQuality, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
 
         [Theory]
@@ -174,6 +183,7 @@ namespace GildedRose.UnitTests
             gildedRose.UpdateQuality();
 
             Assert.Equal(expectedQuality, items[0].Quality);
+            Assert.Equal(sellIn - 1, items[0].SellIn);
         }
     }
 }
