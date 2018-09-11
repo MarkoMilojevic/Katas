@@ -13,9 +13,9 @@ namespace GildedRose
         public const string Sulfuras = "Sulfuras, Hand of Ragnaros";
         public const string Conjured = "Conjured Mana Cake";
 
-        private IList<Item> Items { get; }
+        private IEnumerable<Item> Items { get; }
 
-        public GildedRose(IList<Item> items) =>
+        public GildedRose(IEnumerable<Item> items) =>
             Items = items;
 
         public void UpdateQuality()
@@ -29,7 +29,7 @@ namespace GildedRose
             if (item.Name == Sulfuras)
                 return;
 
-            item.SellIn = item.SellIn - 1;
+            item.SellIn -= 1;
 
             switch (item.Name)
             {
@@ -51,48 +51,33 @@ namespace GildedRose
             }
         }
 
-        private static int AgedBrieQuality(int sellIn, int quality)
-        {
-            quality += sellIn >= 0 ? 1 : 2;
-
-            return Math.Min(quality, MaxQuality);
-        }
+        private static int AgedBrieQuality(int sellIn, int quality) =>
+            sellIn >= 0
+                ? Math.Min(quality + 1, MaxQuality)
+                : Math.Min(quality + 2, MaxQuality);
 
         private static int BackstagePassesQuality(int sellIn, int quality)
         {
-            switch (sellIn)
-            {
-                case int value when value < 0:
-                    return 0;
+            if (sellIn < 0)
+                return 0;
 
-                case int value when value < 5:
-                    quality += 3;
-                    break;
+            if (sellIn < 5)
+                return Math.Min(quality + 3, MaxQuality);
 
-                case int value when value < 10:
-                    quality += 2;
-                    break;
+            if (sellIn < 10)
+                return Math.Min(quality + 2, MaxQuality);
 
-                default:
-                    quality += 1;
-                    break;
-            }
-
-            return Math.Min(quality, MaxQuality);
+            return Math.Min(quality + 1, MaxQuality);
         }
 
-        private static int ConjuredQuality(int sellIn, int quality)
-        {
-            quality -= sellIn >= 0 ? 2 : 4;
+        private static int ConjuredQuality(int sellIn, int quality) =>
+            sellIn >= 0 
+                ? Math.Max(quality - 2, MinQuality)
+                : Math.Max(quality - 4, MinQuality);
 
-            return Math.Max(quality, MinQuality);
-        }
-
-        private static int NormalQuality(int sellIn, int quality)
-        {
-            quality -= sellIn >= 0 ? 1 : 2;
-
-            return Math.Max(quality, MinQuality);
-        }
+        private static int NormalQuality(int sellIn, int quality) =>
+            sellIn >= 0
+                ? Math.Max(quality - 1, MinQuality)
+                : Math.Max(quality - 2, MinQuality);
     }
 }
