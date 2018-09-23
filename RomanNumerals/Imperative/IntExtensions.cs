@@ -23,7 +23,7 @@ namespace RomanNumerals.Imperative
             return weightedDigits;
         }
 
-        public static int GetNumberOfDigits(this int number)
+        private static int GetNumberOfDigits(this int number)
         {
             int numberOfDigits = 0;
 
