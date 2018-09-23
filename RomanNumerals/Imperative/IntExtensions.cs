@@ -14,10 +14,9 @@ namespace RomanNumerals.Imperative
             {
                 int weight = (int) Math.Pow(10, n - i - 1);
                 int digit = number / weight % 10;
+
                 if (digit != 0)
-                {
                     weightedDigits.Add(weight * digit);
-                }
             }
 
             return weightedDigits;
