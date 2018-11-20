@@ -31,14 +31,17 @@ namespace MarsRover
 
         public Coordinates Translate(Coordinates coordinates, int dx, int dy)
         {
-            int newX = (coordinates.X + dx).Mod(Size);
-            int newY = (coordinates.Y + dy).Mod(Size);
+            int newX = Translate(coordinates.X, dx);
+            int newY = Translate(coordinates.Y, dy);
             var newCoordinates = new Coordinates(newX, newY);
 
             return ObstacleAt(newCoordinates)
                        ? coordinates
                        : newCoordinates;
         }
+
+        private int Translate(int coordinate, int delta) =>
+            (coordinate + delta).Mod(Size);
 
         private bool ObstacleAt(Coordinates newCoordinates) =>
             ObstacleCoordinates.Contains(newCoordinates);
