@@ -64,7 +64,7 @@ namespace MarsRover.UnitTests
         {
             Position position = APosition()
                                 .WithCoordinates(0, 0)
-                                .WithGrid(10, (0, 1))
+                                .WithGrid(10, new Coordinates(0, 1))
                                 .Facing('N')
                                 .Build();
 

@@ -8,45 +8,38 @@ namespace MarsRover
     {
         private Grid Grid { get; }
 
-        public int X { get; }
-        public int Y { get; }
+        public Coordinates Coordinates { get; }
         public Direction Direction { get; }
 
-        public Position(int x, int y, Direction direction, Grid grid)
+        public Position(Coordinates coordinates, Direction direction, Grid grid)
         {
+            if (coordinates == null)
+                throw new ArgumentNullException(nameof(coordinates));
+
             if (grid == null)
                 throw new ArgumentNullException(nameof(grid));
 
-            if (x < 0 || x >= grid.Size || y < 0 || y >= grid.Size)
-                throw new ArgumentOutOfRangeException();
+            if (coordinates.X >= grid.Size || coordinates.Y >= grid.Size)
+                throw new ArgumentOutOfRangeException(nameof(coordinates));
 
-            X = x;
-            Y = y;
+            Coordinates = coordinates;
             Direction = direction ?? throw new ArgumentNullException(nameof(direction));
             Grid = grid;
         }
 
-        public Position Translate(int dx, int dy)
-        {
-            int x = (X + dx).Mod(Grid.Size);
-            int y = (Y + dy).Mod(Grid.Size);
-
-            return Grid.ContainsObstacleAt(x, y)
-                       ? this
-                       : new Position(x, y, Direction, Grid);
-        }
+        public Position Translate(int dx, int dy) =>
+            new Position(Grid.Translate(Coordinates, dx, dy), Direction, Grid);
 
         public Position Face(Direction direction) =>
-            new Position(X, Y, direction, Grid);
+            new Position(Coordinates, direction, Grid);
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return X;
-            yield return Y;
+            yield return Coordinates;
             yield return Direction;
         }
 
         public override string ToString() =>
-            $"X: {X}, Y: {Y}, Direction: {Direction}";
+            $"Coordinates: [{Coordinates}], Direction: {Direction}";
     }
 }

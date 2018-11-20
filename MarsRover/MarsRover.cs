@@ -13,18 +13,18 @@ namespace MarsRover
 
         public MarsRover Execute(string instructions)
         {
-            Position currentPosition = Position;
+            Position position = Position;
 
             foreach (char instruction in instructions)
             {
-                Position newPosition = currentPosition.Transform(instruction);
-                if (newPosition == currentPosition)
+                Position newPosition = position.Transform(instruction);
+                if (newPosition == position)
                     break;
 
-                currentPosition = newPosition;
+                position = newPosition;
             }
 
-            return new MarsRover(currentPosition);
+            return new MarsRover(position);
         }
 
         protected override IEnumerable<object> GetAtomicValues()
