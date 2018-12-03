@@ -56,19 +56,14 @@ namespace GildedRose
                 ? Math.Min(quality + 1, MaxQuality)
                 : Math.Min(quality + 2, MaxQuality);
 
-        private static int BackstagePassesQuality(int sellIn, int quality)
-        {
-            if (sellIn < 0)
-                return 0;
-
-            if (sellIn < 5)
-                return Math.Min(quality + 3, MaxQuality);
-
-            if (sellIn < 10)
-                return Math.Min(quality + 2, MaxQuality);
-
-            return Math.Min(quality + 1, MaxQuality);
-        }
+        private static int BackstagePassesQuality(int sellIn, int quality) => 
+            sellIn < 0
+                ? 0
+            : sellIn < 5 
+                ? Math.Min(quality + 3, MaxQuality)
+            : sellIn < 10
+                ? Math.Min(quality + 2, MaxQuality)
+            : Math.Min(quality + 1, MaxQuality);
 
         private static int ConjuredQuality(int sellIn, int quality) =>
             sellIn >= 0 
