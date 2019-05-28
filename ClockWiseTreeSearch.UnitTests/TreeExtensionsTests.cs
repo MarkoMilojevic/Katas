@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
+using static ClockWiseTreeSearch.UnitTests.Asserts;
 
 namespace ClockWiseTreeSearch.UnitTests
 {
@@ -9,11 +9,7 @@ namespace ClockWiseTreeSearch.UnitTests
         [Fact]
         public void ClockWiseTreeSearchTest()
         {
-            Tree<int> tree = CreateTree();
-
-            IEnumerable<int> actual = tree
-                                        .ClockWiseSearch()
-                                        .Select(node => node.Value);
+            IEnumerable<int> actual = CreateTreeWithFourLevels().ClockWiseSearch();
 
             IEnumerable<int> expected = new[] 
             {
@@ -29,77 +25,20 @@ namespace ClockWiseTreeSearch.UnitTests
         [Fact]
         public void LevelsTest()
         {
-            Tree<int> tree = CreateTree();
+            int[][] actual = CreateTreeWithFourLevels().Levels();
 
-            IEnumerable<int> actual = tree
-                                        .Levels()
-                                        .SelectMany(level => level.Select(node => node.Value));
-
-            IEnumerable<int> expected = new[]
+            int[][] expected = new[]
             {
-                1,
-                2, 3,
-                4, 5, 6, 7,
-                8, 9, 10, 11, 12, 13, 14, 15
+                new[] { 1 },
+                new[] { 2, 3 },
+                new[] { 4, 5, 6, 7 },
+                new[] { 8, 9, 10, 11, 12, 13, 14, 15 }
             };
 
-            Assert.Equal(expected, actual);
+            AssertMatrix(actual, expected);
         }
 
-        [Fact]
-        public void AlternateVerticallyTest()
-        {
-            Tree<int> tree = CreateTree();
-
-            IEnumerable<int> actual = tree
-                                        .Levels()
-                                        .AlternateVertically()
-                                        .SelectMany(level => level.Select(node => node.Value).ToList());
-
-            IEnumerable<int> expected = new[]
-            {
-                1,
-                8, 9, 10, 11, 12, 13, 14, 15,
-                2, 3,
-                4, 5, 6, 7
-            };
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void AlternateIndexesTest()
-        {
-            Tree<int> tree = CreateTree();
-
-            IEnumerable<int> actual = 5.AlternateIndexes();
-            IEnumerable<int> expected = new[] { 0, 4, 1, 3, 2 };
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void AlternateReverseTest()
-        {
-            Tree<int> tree = CreateTree();
-
-            IEnumerable<int> actual = tree
-                                        .Levels()
-                                        .AlternateReverse()
-                                        .SelectMany(level => level.Select(node => node.Value));
-
-            IEnumerable<int> expected = new[]
-            {
-                1,
-                3, 2,
-                4, 5, 6, 7,
-                15, 14, 13, 12, 11, 10, 9, 8
-            };
-
-            Assert.Equal(expected, actual);
-        }
-
-        private static Tree<int> CreateTree() => 
+        private static Tree<int> CreateTreeWithFourLevels() => 
             new Tree<int>(
                 new Node<int>(1)
                 {

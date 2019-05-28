@@ -21,24 +21,24 @@ namespace ClockWiseTreeSearch
             }
         }
 
-        public static IEnumerable<Node<T>> ClockWiseSearch<T>(this Tree<T> tree)
+        public static IEnumerable<T> ClockWiseSearch<T>(this Tree<T> tree)
         {
             if (tree == null)
                 throw new ArgumentNullException(nameof(tree));
 
             return tree
                     .Levels()
-                    .AlternateVertically()
-                    .AlternateReverse()
+                    .ReverseRowsInBottomHalf()
+                    .AlternateRowsVertically()
                     .SelectMany(level => level);
         }
 
-        public static List<List<Node<T>>> Levels<T>(this Tree<T> tree)
+        public static T[][] Levels<T>(this Tree<T> tree)
         {
             if (tree == null)
                 throw new ArgumentNullException(nameof(tree));
 
-            List<List<Node<T>>> levels = new List<List<Node<T>>>();
+            List<List<T>> levels = new List<List<T>>();
 
             Queue<QueueEntry<T>> queue = new Queue<QueueEntry<T>>();
             queue.Enqueue(new QueueEntry<T>(tree.Root, level: 0));
@@ -48,9 +48,9 @@ namespace ClockWiseTreeSearch
                 QueueEntry<T> entry = queue.Dequeue();
 
                 if (levels.Count == entry.Level)
-                    levels.Add(new List<Node<T>>());
+                    levels.Add(new List<T>());
 
-                levels[entry.Level].Add(entry.Node);
+                levels[entry.Level].Add(entry.Node.Value);
 
                 if (entry.Node.Left != null)
                     queue.Enqueue(new QueueEntry<T>(entry.Node.Left, level: entry.Level + 1));
@@ -59,25 +59,9 @@ namespace ClockWiseTreeSearch
                     queue.Enqueue(new QueueEntry<T>(entry.Node.Right, level: entry.Level + 1));
             }
 
-            return levels;
+            return levels
+                    .Select(level => level.ToArray())
+                    .ToArray();
         }
-
-        public static List<List<Node<T>>> AlternateVertically<T>(this List<List<Node<T>>> levels) =>
-            levels
-                .Count
-                .AlternateIndexes()
-                .Select(i => levels[i])
-                .ToList();
-
-        public static List<List<Node<T>>> AlternateReverse<T>(this List<List<Node<T>>> levels) =>
-            Enumerable
-                .Range(0, levels.Count)
-                .Select(i => i % 2 == 0 ? levels[i] : levels[i].AsEnumerable().Reverse().ToList())
-                .ToList();
-
-        public static IEnumerable<int> AlternateIndexes(this int n) => 
-            Enumerable
-                .Range(0, n)
-                .Select(i => i % 2 == 0 ? i / 2 : n - ((i + 1) / 2));
     }
 }
