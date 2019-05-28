@@ -28,8 +28,8 @@ namespace ClockWiseTreeSearch
 
             return tree
                     .Levels()
-                    .AlternateVertically()
-                    .AlternateReverse()
+                    .ReverseRowsInBottomHalf()
+                    .AlternateRowsVertically()
                     .SelectMany(level => level);
         }
 

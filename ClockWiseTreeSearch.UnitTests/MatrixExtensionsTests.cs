@@ -6,7 +6,7 @@ namespace ClockWiseTreeSearch.UnitTests
     public class MatrixExtensionsTests
     {
         [Fact]
-        public void AlternateVerticallyTest()
+        public void AlternateRowsVerticallyTest()
         {
             int[][] matrix = new[]
             {
@@ -16,7 +16,7 @@ namespace ClockWiseTreeSearch.UnitTests
                 new[] { 8, 9, 10, 11, 12, 13, 14, 15 }
             };
 
-            int[][] actual = matrix.AlternateVertically();
+            int[][] actual = matrix.AlternateRowsVertically();
 
             int[][] expected = new[]
             {
@@ -30,7 +30,7 @@ namespace ClockWiseTreeSearch.UnitTests
         }
 
         [Fact]
-        public void AlternateReverseTest()
+        public void ReverseRowsInBottomHalfTest()
         {
             int[][] matrix = new[]
             {
@@ -40,13 +40,13 @@ namespace ClockWiseTreeSearch.UnitTests
                 new[] { 8, 9, 10, 11, 12, 13, 14, 15 }
             };
 
-            int[][] actual = matrix.AlternateReverse();
+            int[][] actual = matrix.ReverseRowsInBottomHalf();
 
             int[][] expected = new[]
             {
                 new[] { 1 },
-                new[] { 3, 2 },
-                new[] { 4, 5, 6, 7 },
+                new[] { 2, 3 },
+                new[] { 7, 6, 5, 4 },
                 new[] { 15, 14, 13, 12, 11, 10, 9, 8 }
             };
 

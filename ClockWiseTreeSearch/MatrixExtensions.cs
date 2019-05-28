@@ -5,7 +5,7 @@ namespace ClockWiseTreeSearch
 {
     public static class MatrixExtensions
     {
-        public static T[][] AlternateVertically<T>(this T[][] levels)
+        public static T[][] AlternateRowsVertically<T>(this T[][] levels)
         {
             if (levels == null)
                 return new T[0][];
@@ -17,14 +17,14 @@ namespace ClockWiseTreeSearch
                     .ToArray();
         }
 
-        public static T[][] AlternateReverse<T>(this T[][] levels)
+        public static T[][] ReverseRowsInBottomHalf<T>(this T[][] levels)
         {
             if (levels == null)
                 return new T[0][];
 
             return Enumerable
                     .Range(0, levels.Length)
-                    .Select(i => i % 2 == 0 ? levels[i] : levels[i].AsEnumerable().Reverse().ToArray())
+                    .Select(i => i < (levels.Length + 1) / 2 ? levels[i] : levels[i].AsEnumerable().Reverse().ToArray())
                     .ToArray();
         }
     }
