@@ -6,7 +6,7 @@ namespace ClockWiseTreeSearch
 {
     public static class TreeExtensions
     {
-        public class QueueEntry<T>
+        private class QueueEntry<T>
         {
             public Node<T> Node { get; }
             public int Level { get; }
