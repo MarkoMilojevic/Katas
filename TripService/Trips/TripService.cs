@@ -7,9 +7,11 @@ public class TripService
 {
     public List<Trip> GetTripsByUser(User user)
     {
-        List<Trip> tripList = new List<Trip>();
+        List<Trip> tripList = new();
+
         User loggedUser = UserSession.GetInstance().GetLoggedUser();
         bool isFriend = false;
+
         if (loggedUser != null)
         {
             foreach (User friend in user.GetFriends())
@@ -20,10 +22,12 @@ public class TripService
                     break;
                 }
             }
+
             if (isFriend)
             {
                 tripList = TripDAO.FindTripsByUser(user);
             }
+
             return tripList;
         }
         else

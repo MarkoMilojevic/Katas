@@ -22,7 +22,9 @@ public class DependendClassCallDuringUnitTestException : Exception
     {
     }
 
-    private DependendClassCallDuringUnitTestException(SerializationInfo info, StreamingContext context)
+    private DependendClassCallDuringUnitTestException(
+        SerializationInfo info,
+        StreamingContext context)
         : base(info, context)
     {
     }
