@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanNumerals", "RomanNumerals\RomanNumerals.csproj", "{72CBDF97-6ADD-4719-82AB-BBD331698143}"
 EndProject
@@ -33,7 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife.App", "GameOfLif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockWiseTreeSearch", "ClockWiseTreeSearch\ClockWiseTreeSearch.csproj", "{6C248B54-5889-45B9-80F2-CE2A7C320012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockWiseTreeSearch.UnitTests", "ClockWiseTreeSearch.UnitTests\ClockWiseTreeSearch.UnitTests.csproj", "{29A66F3A-CD64-43FD-8296-119E82248A94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockWiseTreeSearch.UnitTests", "ClockWiseTreeSearch.UnitTests\ClockWiseTreeSearch.UnitTests.csproj", "{29A66F3A-CD64-43FD-8296-119E82248A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripService", "TripService\TripService.csproj", "{7B0D453C-778B-4EAD-9227-839DE75AD8EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripService.UnitTests", "TripService.UnitTests\TripService.UnitTests.csproj", "{2C39DD1B-551B-40B2-AA92-C661E0879E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +109,14 @@ Global
 		{29A66F3A-CD64-43FD-8296-119E82248A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A66F3A-CD64-43FD-8296-119E82248A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A66F3A-CD64-43FD-8296-119E82248A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B0D453C-778B-4EAD-9227-839DE75AD8EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B0D453C-778B-4EAD-9227-839DE75AD8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B0D453C-778B-4EAD-9227-839DE75AD8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B0D453C-778B-4EAD-9227-839DE75AD8EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C39DD1B-551B-40B2-AA92-C661E0879E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C39DD1B-551B-40B2-AA92-C661E0879E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C39DD1B-551B-40B2-AA92-C661E0879E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C39DD1B-551B-40B2-AA92-C661E0879E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
