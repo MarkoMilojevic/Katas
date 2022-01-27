@@ -5,7 +5,7 @@ namespace TripService.Trips;
 
 public class TripService
 {
-    public List<Trip> GetTripsByUser(User user)
+    public List<Trip> GetTripsByUser(User? user)
     {
         List<Trip> tripList = new();
 
