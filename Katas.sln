@@ -35,9 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockWiseTreeSearch", "Cloc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClockWiseTreeSearch.UnitTests", "ClockWiseTreeSearch.UnitTests\ClockWiseTreeSearch.UnitTests.csproj", "{29A66F3A-CD64-43FD-8296-119E82248A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripService", "TripService\TripService.csproj", "{7B0D453C-778B-4EAD-9227-839DE75AD8EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripServiceKata", "TripServiceKata\TripServiceKata.csproj", "{7B0D453C-778B-4EAD-9227-839DE75AD8EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripService.UnitTests", "TripService.UnitTests\TripService.UnitTests.csproj", "{2C39DD1B-551B-40B2-AA92-C661E0879E5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripServiceKata.UnitTests", "TripServiceKata.UnitTests\TripServiceKata.UnitTests.csproj", "{2C39DD1B-551B-40B2-AA92-C661E0879E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

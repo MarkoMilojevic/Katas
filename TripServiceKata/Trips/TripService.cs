@@ -1,7 +1,7 @@
-﻿using TripService.Exceptions;
-using TripService.Users;
+﻿using TripServiceKata.Exceptions;
+using TripServiceKata.Users;
 
-namespace TripService.Trips;
+namespace TripServiceKata.Trips;
 
 public class TripService
 {

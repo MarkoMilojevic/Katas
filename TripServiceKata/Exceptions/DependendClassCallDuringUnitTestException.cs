@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace TripService.Exceptions;
+namespace TripServiceKata.Exceptions;
 
 [Serializable]
 public class DependendClassCallDuringUnitTestException : Exception

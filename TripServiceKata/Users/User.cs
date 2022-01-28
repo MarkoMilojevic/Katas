@@ -1,6 +1,6 @@
-﻿using TripService.Trips;
+﻿using TripServiceKata.Trips;
 
-namespace TripService.Users;
+namespace TripServiceKata.Users;
 
 public class User
 {

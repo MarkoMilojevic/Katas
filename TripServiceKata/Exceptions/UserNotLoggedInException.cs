@@ -1,4 +1,4 @@
-﻿namespace TripService.Exceptions;
+﻿namespace TripServiceKata.Exceptions;
 
 [Serializable]
 public class UserNotLoggedInException : Exception
