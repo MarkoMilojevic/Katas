@@ -7,8 +7,8 @@ namespace TripServiceKata.UnitTests;
 
 public class UserBuilder
 {
-    public List<User> Friends { get; set; } = new();
-    public List<Trip> Trips { get; set; } = new();
+    private List<User> Friends { get; set; } = new();
+    private List<Trip> Trips { get; set; } = new();
 
     public UserBuilder WithFriends(params User[] friends)
     {
@@ -47,4 +47,9 @@ public class UserBuilder
             user.AddTrip(trip);
         }
     }
+
+    public static UserBuilder AUser() => new();
+
+    public static implicit operator User(UserBuilder builder) =>
+        builder.Build();
 }

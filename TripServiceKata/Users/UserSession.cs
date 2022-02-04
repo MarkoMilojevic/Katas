@@ -2,7 +2,7 @@
 
 namespace TripServiceKata.Users;
 
-public class UserSession
+public class UserSession : IUserSession
 {
     public static readonly UserSession Instance = new();
 
@@ -16,7 +16,7 @@ public class UserSession
             "UserSession.IsUserLoggedIn() should not be called in an unit test");
     }
 
-    public User GetLoggedUser()
+    public User GetLoggedInUser()
     {
         throw new DependendClassCallDuringUnitTestException(
             "UserSession.GetLoggedUser() should not be called in an unit test");

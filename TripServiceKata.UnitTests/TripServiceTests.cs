@@ -1,46 +1,59 @@
+using Moq;
 using System.Collections.Generic;
 using TripServiceKata.Exceptions;
 using TripServiceKata.Trips;
 using TripServiceKata.Users;
 using Xunit;
+using static TripServiceKata.UnitTests.UserBuilder;
 
 namespace TripServiceKata.UnitTests;
 
 public class TripServiceTests
 {
-    public TestTripService TripService { get; }
-    public User? Guest { get; }
-    public User LoggedInUser { get; }
-    public User NotFriend { get; }
-    public Trip TripToSpain { get; set; }
+    private readonly TripService _tripService;
+
+    private readonly Mock<IUserSession> _userSession;
+    private readonly Mock<ITripsRepository> _tripsRepository;
+
+    private readonly User _loggedInUser;
+    private readonly User _notFriend;
 
     public TripServiceTests()
     {
-        this.Guest = null;
-        this.LoggedInUser = AUser().Build();
-        this.NotFriend = AUser().Build();
-        this.TripToSpain = new();
+        this._loggedInUser = AUser();
+        this._notFriend = AUser();
 
-        this.TripService = new()
-        {
-            LoggedInUser = this.Guest,
-        };
+        this._userSession = new();
+        this._userSession
+            .Setup(session => session.GetLoggedInUser())
+            .Returns<User>(null);
+        
+        this._tripsRepository = new();
+        this._tripsRepository
+            .Setup(repo => repo.GetTrips(It.IsAny<User>()))
+            .Returns((User user) => user.Trips());
+
+        this._tripService = new(
+            this._userSession.Object,
+            this._tripsRepository.Object);
     }
 
     [Fact]
     public void GetTripsByUser_Throws_When_UserNotLoggedIn()
     {
         Assert.Throws<UserNotLoggedInException>(
-            () => this.TripService.GetTripsByUser(this.NotFriend));
+            () => this._tripService.GetTripsByUser(this._notFriend));
     }
 
     [Fact]
     public void GetTripsByUser_ReturnsNoTrips_WhenNotFriends()
     {
-        this.TripService.LoggedInUser = this.LoggedInUser;
+        this._userSession
+            .Setup(session => session.GetLoggedInUser())
+            .Returns(this._loggedInUser);
 
-        List<Trip> trips =
-            this.TripService.GetTripsByUser(this.NotFriend);
+        IReadOnlyList<Trip> trips =
+            this._tripService.GetTripsByUser(this._notFriend);
 
         Assert.Empty(trips);
     }
@@ -48,31 +61,21 @@ public class TripServiceTests
     [Fact]
     public void GetTripsByUser_ReturnsUserTrips_WhenFriends()
     {
-        this.TripService.LoggedInUser = this.LoggedInUser;
+        this._userSession
+            .Setup(session => session.GetLoggedInUser())
+            .Returns(this._loggedInUser);
+
+        Trip tripToSpain = new();
 
         User friend =
             AUser()
-                .WithFriends(this.LoggedInUser)
-                .WithTrips(this.TripToSpain)
-                .Build();
+                .WithFriends(this._loggedInUser)
+                .WithTrips(tripToSpain);
 
-        List<Trip> trips =
-            this.TripService.GetTripsByUser(friend);
+        IReadOnlyList<Trip> trips =
+            this._tripService.GetTripsByUser(friend);
 
         Assert.Single(trips);
-        Assert.Equal(this.TripToSpain, trips[0]);
+        Assert.Equal(tripToSpain, trips[0]);
     }
-
-    public static UserBuilder AUser() => new();
-}
-
-public class TestTripService : TripService
-{
-    public User? LoggedInUser { get; set; }
-
-    protected override List<Trip> GetTrips(User user) =>
-        user.Trips();
-
-    protected override User? GetLoggedInUser() =>
-        this.LoggedInUser;
 }
