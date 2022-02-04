@@ -7,28 +7,18 @@ public class User
     private readonly List<Trip> _trips = new();
     private readonly List<User> _friends = new();
 
-    public IReadOnlyList<User> GetFriends()
-    {
-        return _friends;
-    }
+    public IReadOnlyList<User> GetFriends() =>
+        this._friends;
 
-    public void AddFriend(User user)
-    {
-        _friends.Add(user);
-    }
+    public void AddFriend(User user) =>
+        this._friends.Add(user);
 
-    public void AddTrip(Trip trip)
-    {
-        _trips.Add(trip);
-    }
+    public void AddTrip(Trip trip) =>
+        this._trips.Add(trip);
 
-    public IReadOnlyList<Trip> Trips()
-    {
-        return _trips;
-    }
+    public IReadOnlyList<Trip> Trips() =>
+        this._trips;
 
-    public bool IsFriendsWith(User user)
-    {
-        return _friends.Contains(user);
-    }
+    public bool IsFriendsWith(User user) =>
+        this._friends.Contains(user);
 }

@@ -10,15 +10,11 @@ public class UserSession : IUserSession
     {
     }
 
-    public bool IsUserLoggedIn(User user)
-    {
+    public bool IsUserLoggedIn(User user) =>
         throw new DependendClassCallDuringUnitTestException(
             "UserSession.IsUserLoggedIn() should not be called in an unit test");
-    }
 
-    public User GetLoggedInUser()
-    {
+    public User GetLoggedInUser() =>
         throw new DependendClassCallDuringUnitTestException(
             "UserSession.GetLoggedUser() should not be called in an unit test");
-    }
 }

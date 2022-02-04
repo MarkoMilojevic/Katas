@@ -7,18 +7,18 @@ namespace TripServiceKata.UnitTests;
 
 public class UserBuilder
 {
-    private List<User> Friends { get; set; } = new();
-    private List<Trip> Trips { get; set; } = new();
+    private List<User> _friends = new();
+    private List<Trip> _trips = new();
 
     public UserBuilder WithFriends(params User[] friends)
     {
-        this.Friends = friends.ToList();
+        this._friends = friends.ToList();
         return this;
     }
 
     public UserBuilder WithTrips(params Trip[] trips)
     {
-        this.Trips = trips.ToList();
+        this._trips = trips.ToList();
         return this;
     }
 
@@ -34,7 +34,7 @@ public class UserBuilder
 
     private void AddFriends(User user)
     {
-        foreach (User friend in this.Friends)
+        foreach (User friend in this._friends)
         {
             user.AddFriend(friend);
         }
@@ -42,13 +42,14 @@ public class UserBuilder
 
     private void AddTrips(User user)
     {
-        foreach (Trip trip in this.Trips)
+        foreach (Trip trip in this._trips)
         {
             user.AddTrip(trip);
         }
     }
 
-    public static UserBuilder AUser() => new();
+    public static UserBuilder AUser() =>
+        new();
 
     public static implicit operator User(UserBuilder builder) =>
         builder.Build();

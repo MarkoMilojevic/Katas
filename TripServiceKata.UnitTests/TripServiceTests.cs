@@ -39,11 +39,9 @@ public class TripServiceTests
     }
 
     [Fact]
-    public void GetTripsByUser_Throws_When_UserNotLoggedIn()
-    {
+    public void GetTripsByUser_Throws_When_UserNotLoggedIn() =>
         Assert.Throws<UserNotLoggedInException>(
             () => this._tripService.GetTripsByUser(this._notFriend));
-    }
 
     [Fact]
     public void GetTripsByUser_ReturnsNoTrips_WhenNotFriends()
